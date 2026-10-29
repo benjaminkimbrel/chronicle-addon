@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Chronicle</title>
+<meta name="description" content="Chronicle, an addon for World of Warcraft: Forever: your character's story, written as you play.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Alegreya:ital,wght@0,400;0,500;1,400&family=Alegreya+Sans+SC:wght@500&display=swap">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+/* Layout: one reading column on the addon's own two grounds (its Dark theme and its parchment). An evening in the Timeline, then the
+   hint as it grows, then the four tabs that feed each other. */
+:root {
+  --ground: #e6d4ad;
+  --plate: #d8c295;
+  --plate-2: #cdb588;
+  --ink: #2f281e;
+  --ink-soft: #64584a;
+  --gold: #8a5c12;
+  --rule: #b89f72;
+  --display: "Marcellus", "Palatino Linotype", Palatino, Georgia, serif;
+  --body: "Alegreya", "Palatino Linotype", Palatino, Georgia, serif;
+  --label: "Alegreya Sans SC", "Gill Sans", "Trebuchet MS", sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --ground: #171513; --plate: #221f1b; --plate-2: #2b2722; --ink: #cbc5ba; --ink-soft: #92897c; --gold: #e3b84a; --rule: #3a342c; color-scheme: dark;
+} }
+:root[data-theme="dark"] { --ground: #171513; --plate: #221f1b; --plate-2: #2b2722; --ink: #cbc5ba; --ink-soft: #92897c; --gold: #e3b84a; --rule: #3a342c; color-scheme: dark; }
+
+body { background: var(--ground); color: var(--ink); font: 400 1.075rem/1.6 var(--body); }
+.wrap { max-width: 46rem; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 3.5rem 4.5rem; display: grid; gap: 3.5rem; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(2.8rem, 9vw, 4.2rem); line-height: 1; letter-spacing: 0.02em; }
+h2 { font-size: 1.6rem; line-height: 1.2; }
+h3 { font-size: 1.2rem; line-height: 1.25; }
+p { margin: 0; }
+.eyebrow, .label { font-family: var(--label); font-size: 0.82rem; letter-spacing: 0.12em; color: var(--ink-soft); }
+.lede { font-size: 1.35rem; line-height: 1.4; max-width: 32ch; }
+.hero { display: grid; gap: 1.1rem; }
+.hero .thesis { max-width: 36rem; color: var(--ink-soft); }
+.link { color: var(--gold); }
+section { display: grid; gap: 1.2rem; }
+.intro { color: var(--ink-soft); max-width: 38rem; }
+
+/* the Timeline: a day's heading, its entries, and a card that arrived among them */
+.day { display: grid; gap: 1rem; }
+.day > .label { border-bottom: 1px solid var(--rule); padding-bottom: 0.4rem; }
+.entry { display: grid; gap: 0.3rem; padding-left: 1rem; border-left: 2px solid var(--rule); }
+.entry h3 { font-size: 1.12rem; }
+.entry .kind { font-family: var(--label); font-size: 0.74rem; letter-spacing: 0.12em; color: var(--ink-soft); }
+.card { background: var(--plate); border: 1px solid var(--rule); border-radius: 3px; padding: 0.9rem 1.1rem; display: grid; gap: 0.25rem; max-width: 30rem; }
+.card .kind { font-family: var(--label); font-size: 0.74rem; letter-spacing: 0.12em; color: var(--ink-soft); }
+
+/* the hint as it grows */
+.steps { display: grid; gap: 0; border: 1px solid var(--rule); border-radius: 3px; background: var(--plate); }
+.step { display: grid; grid-template-columns: 11rem 1fr; gap: 1rem; padding: 0.9rem 1.1rem; align-items: baseline; }
+.step + .step { border-top: 1px solid var(--rule); }
+.step .label { margin: 0; }
+.step p { min-width: 0; }
+.step.last { background: var(--plate-2); }
+.chapter { display: grid; gap: 0.55rem; }
+.row { display: grid; grid-template-columns: 1.6rem 1fr; gap: 0.6rem; align-items: baseline; }
+.row .mark { font-family: var(--display); text-align: center; color: var(--gold); }
+.row.dim { color: var(--ink-soft); }
+.row.dim .mark { color: var(--ink-soft); }
+.row small { display: block; color: var(--ink-soft); font-size: 0.88rem; }
+.aside { color: var(--ink-soft); font-size: 0.98rem; font-style: italic; }
+
+/* the four tabs that feed each other */
+.web { display: grid; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); gap: 1rem; }
+.pillar { background: var(--plate); border: 1px solid var(--rule); border-radius: 3px; padding: 1.1rem 1.2rem; display: grid; gap: 0.5rem; align-content: start; min-width: 0; }
+.pillar p { color: var(--ink); }
+.goes { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.2rem; }
+.goes span { font-family: var(--label); font-size: 0.76rem; letter-spacing: 0.08em; color: var(--gold); border: 1px solid var(--rule); border-radius: 999px; padding: 0.1rem 0.6rem; }
+
+.apart { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.8rem; }
+.apart li { padding-left: 1.1rem; position: relative; }
+.apart li::before { content: ""; position: absolute; left: 0; top: 0.68em; width: 0.4rem; height: 0.4rem; border: 1px solid var(--gold); transform: rotate(45deg); }
+.apart b { font-weight: 500; }
+
+.voices { display: grid; border-top: 1px solid var(--rule); }
+.voice { display: grid; grid-template-columns: 6.5rem 1fr; gap: 1rem; padding: 0.7rem 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
+.voice .label { margin: 0; }
+.voice p { font-style: italic; min-width: 0; }
+.eyes { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; }
+.eyes figure { margin: 0; display: grid; gap: 0.4rem; }
+.eyes blockquote { margin: 0; font-style: italic; }
+@media (max-width: 32rem) { .step, .voice { grid-template-columns: 1fr; gap: 0.2rem; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <p class="eyebrow">An addon for World of Warcraft: Forever</p>
+    <h1>Chronicle</h1>
+    <p class="lede">Your character's story, written as you play.</p>
+    <p class="thesis">Everything you would look up on a website, Chronicle learns as you go: who has work for you, where a foe lives, what it drops, who was with you in the Deadmines. You build your own book of the world, and it only knows what your character has seen.</p>
+  </header>
+
+  <section>
+    <h2>An evening in the Timeline</h2>
+    <div class="day">
+      <p class="label">Monday, October 12</p>
+      <div class="card">
+        <p class="kind">Work in the dungeons</p>
+        <p>There are tasks in <span class="link">the Deadmines</span> for someone of your experience now.</p>
+      </div>
+      <div class="entry">
+        <p class="kind">Journey</p>
+        <h3>A rumor regarding the Deadmines</h3>
+        <p>Innkeeper Farley told me that Gryan Stoutmantle, in <span class="link">Sentinel Hill</span>, may have a task that leads to <span class="link">the Deadmines</span>.</p>
+      </div>
+      <div class="entry">
+        <p class="kind">Quests</p>
+        <h3>The Defias Brotherhood</h3>
+        <p>Gryan Stoutmantle told me that the Defias had driven the good people of <span class="link">Westfall</span> from their land, and he wanted someone among them to learn who led the gang and where it was hiding. He sent me to a rogue named Wiley, who owed him a favor, at the inn in <span class="link">Lakeshire</span>, east of Elwynn in the <span class="link">Redridge Mountains</span>. I found Wiley there. Wiley admitted that he owed Gryan, and heard me out.</p>
+      </div>
+      <div class="entry">
+        <p class="kind">Dungeons</p>
+        <h3>The Deadmines</h3>
+        <p>We cleared <span class="link">the Deadmines</span> for the first time this evening, and it took thirty minutes. <span class="link">Lyandra</span> and <span class="link">Torvald</span> went with me, and I did not die.</p>
+      </div>
+    </div>
+    <p class="aside">Every highlighted name leads somewhere: a place to the Atlas, the Deadmines to its page in Dungeons, a companion to everything you have done together.</p>
+  </section>
+
+  <section>
+    <h2>Hints that grow as you do</h2>
+    <p class="intro">When your character is ready for a dungeon or the next part of their class training, the Journey opens a chapter for it. Its hint starts vague and fills in as you explore and ask around, so you find the work yourself instead of reading a guide.</p>
+    <div class="steps">
+      <div class="step"><p class="label">At first</p><p>Someone out in the world may know of work in the Deadmines.</p></div>
+      <div class="step"><p class="label">Once you've been to Westfall</p><p>Someone in Westfall may know of work in the Deadmines.</p></div>
+      <div class="step last"><p class="label">After a word with an innkeeper</p><p>Gryan Stoutmantle, in Sentinel Hill, may know of work in the Deadmines.</p></div>
+    </div>
+    <p class="intro">Innkeepers pass on rumors about the dungeons, and class trainers tell you who else can teach you. Each rumor is kept in the Timeline too. Then the chapter follows you through it:</p>
+    <div class="chapter">
+      <div class="row"><span class="mark">✓</span><p>The Defias Brotherhood <small>Completed on October 12, told in your own words</small></p></div>
+      <div class="row"><span class="mark">◆</span><p>The Defias Brotherhood <small>In your quest log</small></p></div>
+      <div class="row dim"><span class="mark">?</span><p>??? <small>Not found yet. No spoilers: a step stays hidden until you reach it.</small></p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Four tabs that feed each other</h2>
+    <div class="web">
+      <div class="pillar">
+        <h3>Journey</h3>
+        <p>A chapter for every class quest chain and every dungeon, with hints from innkeepers and trainers. Each step you finish is its story, retold in your character's words.</p>
+        <div class="goes"><span>Places to the Atlas</span><span>Dungeons to their page</span></div>
+      </div>
+      <div class="pillar">
+        <h3>Atlas</h3>
+        <p>Maps that fill in as you explore. Each zone keeps the foes you fought there, what you gathered and the quests you did. Click a foe to see on the map where you fought it, and set a waypoint.</p>
+        <div class="goes"><span>Foes to the Bestiary</span><span>Herbs and ore to Professions</span></div>
+      </div>
+      <div class="pillar">
+        <h3>Bestiary</h3>
+        <p>Every foe you have killed: what your race and class make of it, what it dropped, and where you met it. Click a drop to see which other foes have dropped it.</p>
+        <div class="goes"><span>Where you fought it, in the Atlas</span><span>Drops to a search</span></div>
+      </div>
+      <div class="pillar">
+        <h3>Dungeons</h3>
+        <p>Every run and clear: who came, how long it took, which bosses fell and what they can drop. A run that fell apart is remembered too.</p>
+        <div class="goes"><span>Companions</span><span>Its quests in the Journey</span></div>
+      </div>
+    </div>
+    <p class="aside">The Timeline, Professions, Companions and Deeds are woven in the same way. Every tab has a search box.</p>
+  </section>
+
+  <section>
+    <h2>What sets it apart</h2>
+    <ul class="apart">
+      <li><b>Your race writes it.</b> A dwarf sounds like a dwarf and a troll like a troll, for every race and class, Skyborne included.</li>
+      <li><b>It never changes how you play.</b> No quest arrows, no rotation helpers, no nagging. It writes down what you did.</li>
+      <li><b>No spoilers.</b> It only knows what your character has seen or been told.</li>
+      <li><b>Easy on your game.</b> Old days fold into months, so your records stay small and quick.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>The same line, three voices</h2>
+    <div class="voices">
+      <div class="voice"><p class="label">Human</p><p>There is always one more place over the next rise, and I'm beginning to enjoy that.</p></div>
+      <div class="voice"><p class="label">Dwarf</p><p>There is always one more place over the next rise, an' I'm beginnin' to enjoy that.</p></div>
+      <div class="voice"><p class="label">Troll</p><p>Dere always be one more place over de next rise, an' I be beginnin' to enjoy dat.</p></div>
+    </div>
+    <div class="eyes">
+      <figure><figcaption class="label">A dwarf on kobolds</figcaption><blockquote>Kobolds and their tunnels. There is no greater insult to honest digging.</blockquote></figure>
+      <figure><figcaption class="label">A human on kobolds</figcaption><blockquote>Kobolds. Small, sneaky and greedy, and they will fight hard over a candle.</blockquote></figure>
+    </div>
+  </section>
+</div>
+
+</body>
+</html>
