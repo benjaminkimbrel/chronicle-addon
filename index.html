@@ -11,7 +11,7 @@
 <style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
 <style>
 /* Layout: one reading column on the addon's own two grounds (its Dark theme and its parchment). An evening in the Timeline, then the
-   hint as it grows, then the four tabs that feed each other. */
+   hint as it grows, then the database the tabs make between them: one reagent followed through three tabs, the tabs, and more. */
 :root {
   --ground: #e6d4ad;
   --plate: #d8c295;
@@ -60,6 +60,9 @@ section { display: grid; gap: 1.2rem; }
 .step .label { margin: 0; }
 .step p { min-width: 0; }
 .step.last { background: var(--plate-2); }
+.trail .step { grid-template-columns: 7.5rem 1fr; }
+.stat { font-family: var(--label); letter-spacing: 0.06em; color: var(--gold); white-space: nowrap; }
+.sub { display: grid; gap: 0.8rem; }
 .chapter { display: grid; gap: 0.55rem; }
 .row { display: grid; grid-template-columns: 1.6rem 1fr; gap: 0.6rem; align-items: baseline; }
 .row .mark { font-family: var(--display); text-align: center; color: var(--gold); }
@@ -143,7 +146,17 @@ section { display: grid; gap: 1.2rem; }
   </section>
 
   <section>
-    <h2>Four tabs that feed each other</h2>
+    <h2>A database you build by playing</h2>
+    <p class="intro">Chronicle writes down what you kill, loot, skin, gather, make, trade and finish, and each tab reads from the others. It knows only what you have done, so every number in it comes from your own play.</p>
+    <div class="sub">
+      <h3>Following one reagent</h3>
+      <div class="steps trail">
+        <div class="step"><p class="label">Professions</p><p>Bolt of Linen Cloth takes two Linen Cloth. Click the Linen Cloth.</p></div>
+        <div class="step"><p class="label">Bestiary</p><p>The Bestiary opens on a search for every foe that has dropped it. If foes in the zone you are in have dropped it, the search keeps to that zone. Each drop says how often you got it: <span class="stat">7 in total, from 5 of 38 kills (13%)</span>.</p></div>
+        <div class="step last"><p class="label">Atlas</p><p>On the foe's page, click a zone under Fought In. The Atlas map shows where you fought it, and you can set a waypoint.</p></div>
+      </div>
+      <p class="intro">A herb, ore or hide goes to your gathering log instead: how many you have gathered, how many are in your bags and bank, and each zone you gathered it in. Click a zone and the Atlas map shows where you picked it up. A reagent you can make yourself goes to its own recipe.</p>
+    </div>
     <div class="web">
       <div class="pillar">
         <h3>Journey</h3>
@@ -165,8 +178,29 @@ section { display: grid; gap: 1.2rem; }
         <p>Every run and clear: who came, how long it took, which bosses fell and what they can drop. A run that fell apart is remembered too.</p>
         <div class="goes"><span>Companions</span><span>Its quests in the Journey</span></div>
       </div>
+      <div class="pillar">
+        <h3>Professions</h3>
+        <p>Every recipe of your professions, learned or not, and a log of everything you have gathered. Tick Have materials to see only what your bags can make right now, and craft it from the recipe's page.</p>
+        <div class="goes"><span>Reagents to where they come from</span><span>Gathering to the Atlas</span></div>
+      </div>
+      <div class="pillar">
+        <h3>Companions</h3>
+        <p>The people you have played with, most often first: the parties, dungeon runs, quests handed in and notable foes you brought down together.</p>
+        <div class="goes"><span>Runs to Dungeons</span><span>Foes to the Bestiary</span></div>
+      </div>
     </div>
-    <p class="aside">The Timeline, Professions, Companions and Deeds are woven in the same way. Every tab has a search box.</p>
+    <div class="sub">
+      <h3>More of the same</h3>
+      <ul class="apart">
+        <li><b>Search by what drops.</b> Type a thing's name in the Atlas and it lists the foes that dropped it, zone by zone. In Professions, the same search lists every recipe that takes it.</li>
+        <li><b>Who was there.</b> Search Companions for a dungeon, a zone or a foe to see who was with you.</li>
+        <li><b>What killed you.</b> A death names the foe and leads to its Bestiary page. Swear vengeance on it, and the Bestiary keeps count of how many you have killed since.</li>
+        <li><b>Dungeon bosses.</b> Each boss you killed has a Bestiary page with what it dropped for you, and a dungeon's quests lead to its chapter in the Journey.</li>
+        <li><b>Trades.</b> What changed hands, any money, and with whom. A companion's name leads to their page.</li>
+        <li><b>New recipes.</b> A recipe learned at a trainer leads from its Timeline entry straight to the recipe in Professions.</li>
+      </ul>
+    </div>
+    <p class="aside">The Timeline and Deeds are linked the same way, and every tab has a search box.</p>
   </section>
 
   <section>
