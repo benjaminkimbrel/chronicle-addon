@@ -8,10 +8,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Alegreya:ital,wght@0,400;0,500;1,400&family=Alegreya+Sans+SC:wght@500&display=swap">
-<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
 <style>
-/* Layout: one reading column on the addon's own two grounds (its Dark theme and its parchment). An evening in the Timeline, then the
-   hint as it grows, then the database the tabs make between them: one reagent followed through three tabs, the tabs, and more. */
+/* Layout: one reading column on the addon's own two grounds (its Dark theme and its parchment). The addon's screens are drawn into
+   the page as small windows (its tab strip, a list on the left, the chosen thing's page on the right), so a reader who has never
+   seen it can see where each thing lives: an evening in the Timeline, a Journey chapter, then one reagent followed through three tabs. */
 :root {
   --ground: #e6d4ad;
   --plate: #d8c295;
@@ -20,18 +21,28 @@
   --ink-soft: #64584a;
   --gold: #8a5c12;
   --rule: #b89f72;
+  --win: #efe3c6;
+  --frame: #7d6646;
+  --map: #dcc796;
+  --map-line: #a78c5e;
+  --mark: #2f62a8;
+  --tip-bg: #1b1916;
+  --tip-ink: #ece4d3;
+  --tip-gold: #e3b84a;
   --display: "Marcellus", "Palatino Linotype", Palatino, Georgia, serif;
   --body: "Alegreya", "Palatino Linotype", Palatino, Georgia, serif;
   --label: "Alegreya Sans SC", "Gill Sans", "Trebuchet MS", sans-serif;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --ground: #171513; --plate: #221f1b; --plate-2: #2b2722; --ink: #cbc5ba; --ink-soft: #92897c; --gold: #e3b84a; --rule: #3a342c; color-scheme: dark;
+  --ground: #171513; --plate: #221f1b; --plate-2: #2b2722; --ink: #cbc5ba; --ink-soft: #92897c; --gold: #e3b84a; --rule: #3a342c;
+  --win: #1d1a17; --frame: #4d4337; --map: #2a251f; --map-line: #4f463a; --mark: #6f9fe6; color-scheme: dark;
 } }
-:root[data-theme="dark"] { --ground: #171513; --plate: #221f1b; --plate-2: #2b2722; --ink: #cbc5ba; --ink-soft: #92897c; --gold: #e3b84a; --rule: #3a342c; color-scheme: dark; }
+:root[data-theme="dark"] { --ground: #171513; --plate: #221f1b; --plate-2: #2b2722; --ink: #cbc5ba; --ink-soft: #92897c; --gold: #e3b84a; --rule: #3a342c;
+  --win: #1d1a17; --frame: #4d4337; --map: #2a251f; --map-line: #4f463a; --mark: #6f9fe6; color-scheme: dark; }
 
 body { background: var(--ground); color: var(--ink); font: 400 1.075rem/1.6 var(--body); }
 .wrap { max-width: 46rem; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 3.5rem 4.5rem; display: grid; gap: 3.5rem; }
-h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap: balance; }
+h1, h2, h3, h4 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap: balance; }
 h1 { font-size: clamp(2.8rem, 9vw, 4.2rem); line-height: 1; letter-spacing: 0.02em; }
 h2 { font-size: 1.6rem; line-height: 1.2; }
 h3 { font-size: 1.2rem; line-height: 1.25; }
@@ -43,15 +54,66 @@ p { margin: 0; }
 .link { color: var(--gold); }
 section { display: grid; gap: 1.2rem; }
 .intro { color: var(--ink-soft); max-width: 38rem; }
+.group { display: grid; gap: 0.9rem; }
+.aside { color: var(--ink-soft); font-size: 0.98rem; font-style: italic; }
 
-/* the Timeline: a day's heading, its entries, and a card that arrived among them */
-.day { display: grid; gap: 1rem; }
-.day > .label { border-bottom: 1px solid var(--rule); padding-bottom: 0.4rem; }
-.entry { display: grid; gap: 0.3rem; padding-left: 1rem; border-left: 2px solid var(--rule); }
-.entry h3 { font-size: 1.12rem; }
-.entry .kind { font-family: var(--label); font-size: 0.74rem; letter-spacing: 0.12em; color: var(--ink-soft); }
-.card { background: var(--plate); border: 1px solid var(--rule); border-radius: 3px; padding: 0.9rem 1.1rem; display: grid; gap: 0.25rem; max-width: 30rem; }
-.card .kind { font-family: var(--label); font-size: 0.74rem; letter-spacing: 0.12em; color: var(--ink-soft); }
+/* ---- a drawn window of the addon: tab strip, list, page ---- */
+.win { border: 2px solid var(--frame); background: var(--win); border-radius: 3px; overflow: hidden; min-width: 0; font-size: 0.95rem; line-height: 1.45; }
+.tabs { display: flex; gap: 0.15rem; padding: 0.45rem 0.6rem 0; border-bottom: 1px solid var(--rule); overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tabs span { font-family: var(--label); font-size: 0.78rem; letter-spacing: 0.06em; color: var(--ink-soft); padding: 0.3rem 0.55rem 0.4rem; white-space: nowrap; }
+.tabs .on { color: var(--ink); background: var(--plate); box-shadow: inset 0 -2px 0 var(--gold); }
+.win-body { display: grid; grid-template-columns: minmax(0, 12.5rem) minmax(0, 1fr); }
+.list { border-right: 1px solid var(--rule); padding-block: 0.55rem; display: grid; align-content: start; }
+.search { margin: 0 0.6rem 0.45rem; border: 1px solid var(--rule); background: var(--ground); padding: 0.15rem 0.5rem; color: var(--ink); font-size: 0.88rem; }
+.search::before { content: "\2315\00a0"; color: var(--ink-soft); }
+.head { font-family: var(--label); font-size: 0.7rem; letter-spacing: 0.14em; color: var(--ink-soft); padding: 0.45rem 0.9rem 0.15rem; }
+.li { position: relative; padding: 0.35rem 0.7rem 0.35rem 0.95rem; display: grid; }
+.li small { color: var(--ink-soft); font-size: 0.8rem; line-height: 1.3; }
+.li.on { background: var(--plate); }
+.li.on::before { content: ""; position: absolute; left: 0; top: 0.3rem; bottom: 0.3rem; width: 3px; background: var(--gold); }
+.page { padding: 0.9rem 1rem 1.05rem; display: grid; gap: 0.65rem; align-content: start; min-width: 0; }
+.page h4 { font-size: 1.18rem; line-height: 1.2; }
+.page .under { color: var(--ink-soft); font-size: 0.85rem; margin-top: -0.45rem; }
+.cap { font-family: var(--label); font-size: 0.7rem; letter-spacing: 0.14em; color: var(--ink-soft); margin-bottom: -0.3rem; }
+.badges { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.badges span { font-family: var(--label); font-size: 0.72rem; letter-spacing: 0.05em; color: var(--ink-soft); border: 1px solid var(--rule); padding: 0 0.45rem; }
+.rows { display: grid; gap: 0.1rem; }
+.rows div { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.9rem; }
+.rows div span:last-child { color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.slots { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.slot { width: 2.5rem; height: 2.5rem; border: 1px solid var(--rule); background: var(--plate-2); display: grid; place-items: center; position: relative; color: var(--ink-soft); }
+.slot svg { width: 1.45rem; height: 1.45rem; }
+.slot b { position: absolute; right: 0.18rem; bottom: -0.05rem; font: 500 0.72rem var(--label); color: var(--ink); }
+.slot.hot { outline: 2px solid var(--gold); outline-offset: 1px; color: var(--ink); }
+.cursor { position: absolute; right: -0.7rem; bottom: -0.85rem; width: 1.05rem; height: 1.3rem; color: var(--ink); z-index: 1; }
+.tip { justify-self: start; position: relative; display: grid; gap: 0.15rem; max-width: 17rem; background: var(--tip-bg); color: var(--tip-ink); border: 1px solid var(--frame); padding: 0.45rem 0.65rem 0.5rem; font-size: 0.86rem; line-height: 1.35; margin-top: 0.35rem; }
+.tip::before { content: ""; position: absolute; top: -0.42rem; left: var(--at, 0.9rem); width: 0.7rem; height: 0.7rem; background: var(--tip-bg); border-left: 1px solid var(--frame); border-top: 1px solid var(--frame); transform: rotate(45deg); }
+.tip strong { font-weight: 500; }
+.tip .g { color: var(--tip-gold); font-size: 0.8rem; margin-top: 0.15rem; }
+.btns { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+.btn { font-family: var(--label); font-size: 0.8rem; letter-spacing: 0.05em; border: 1px solid var(--frame); background: var(--plate); padding: 0.15rem 0.75rem; }
+.count { border: 1px solid var(--rule); background: var(--ground); padding: 0.1rem 0.6rem; font-size: 0.85rem; }
+.ticks { display: flex; flex-wrap: wrap; gap: 0.2rem 0.8rem; padding: 0 0.9rem 0.45rem; font-size: 0.82rem; color: var(--ink-soft); }
+.tick::before { content: ""; display: inline-block; width: 0.7rem; height: 0.7rem; border: 1px solid var(--frame); margin-right: 0.3rem; vertical-align: -0.05rem; }
+.tick.on { color: var(--ink); }
+.tick.on::before { background: var(--gold); box-shadow: inset 0 0 0 2px var(--win); }
+.lore { font-style: italic; }
+.fig { display: grid; gap: 0.5rem; }
+.fig figcaption { color: var(--ink-soft); font-size: 0.92rem; font-style: italic; }
+figure { margin: 0; }
+
+/* the Timeline inside its window, and the card beside it */
+.day { display: grid; gap: 0.9rem; }
+.figures { display: flex; flex-wrap: wrap; gap: 0.3rem 1.2rem; border-bottom: 1px solid var(--rule); padding-bottom: 0.55rem; }
+.figures span { font-family: var(--label); font-size: 0.72rem; letter-spacing: 0.1em; color: var(--ink-soft); }
+.figures b { font-family: var(--body); font-weight: 500; font-size: 0.95rem; letter-spacing: 0; color: var(--ink); margin-left: 0.25rem; font-variant-numeric: tabular-nums; }
+.entry { display: grid; gap: 0.2rem; padding-left: 0.85rem; border-left: 2px solid var(--rule); }
+.entry h3 { font-size: 1.05rem; }
+.entry .kind, .card .kind { font-family: var(--label); font-size: 0.72rem; letter-spacing: 0.12em; color: var(--ink-soft); }
+.stage { display: grid; gap: 1rem; }
+.card { background: var(--plate); border: 2px solid var(--frame); border-radius: 3px; padding: 0.9rem 1.05rem; display: grid; gap: 0.3rem; }
+.card-wrap { display: grid; grid-template-columns: minmax(0, 20rem) minmax(0, 1fr); gap: 1rem; align-items: center; }
 
 /* the hint as it grows */
 .steps { display: grid; gap: 0; border: 1px solid var(--rule); border-radius: 3px; background: var(--plate); }
@@ -60,21 +122,32 @@ section { display: grid; gap: 1.2rem; }
 .step .label { margin: 0; }
 .step p { min-width: 0; }
 .step.last { background: var(--plate-2); }
-.trail .step { grid-template-columns: 7.5rem 1fr; }
-.stat { font-family: var(--label); letter-spacing: 0.06em; color: var(--gold); white-space: nowrap; }
-.sub { display: grid; gap: 0.8rem; }
-.chapter { display: grid; gap: 0.55rem; }
-.row { display: grid; grid-template-columns: 1.6rem 1fr; gap: 0.6rem; align-items: baseline; }
+.chapter { display: grid; gap: 0.5rem; }
+.row { display: grid; grid-template-columns: 1.4rem 1fr; gap: 0.5rem; align-items: baseline; }
 .row .mark { font-family: var(--display); text-align: center; color: var(--gold); }
 .row.dim { color: var(--ink-soft); }
 .row.dim .mark { color: var(--ink-soft); }
-.row small { display: block; color: var(--ink-soft); font-size: 0.88rem; }
-.aside { color: var(--ink-soft); font-size: 0.98rem; font-style: italic; }
+.row small { display: block; color: var(--ink-soft); font-size: 0.82rem; }
 
-/* the four tabs that feed each other */
+/* one reagent through three tabs */
+.trail { display: grid; gap: 1.6rem; }
+.hop { display: grid; gap: 0.6rem; }
+.hop-head { display: grid; grid-template-columns: 2rem 1fr; gap: 0.75rem; align-items: baseline; }
+.hop-head .n { font-family: var(--display); font-size: 1.35rem; color: var(--gold); text-align: center; border: 1px solid var(--rule); line-height: 1.6; }
+.hop-head p { min-width: 0; }
+.map { display: block; width: 100%; height: auto; }
+.map .ground { fill: var(--map); }
+.map .sea { fill: var(--plate-2); }
+.map .line { fill: none; stroke: var(--map-line); stroke-width: 2; }
+.map .road { fill: none; stroke: var(--map-line); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.map .lit { fill: var(--mark); fill-opacity: 0.22; stroke: var(--mark); stroke-width: 2; }
+.map text { font-family: var(--label); font-size: 11px; letter-spacing: 0.08em; fill: var(--ink-soft); }
+.map .town { fill: var(--ink-soft); }
+.map .pin { fill: var(--gold); stroke: var(--win); stroke-width: 1.5; }
+
+/* the tabs that feed each other */
 .web { display: grid; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); gap: 1rem; }
 .pillar { background: var(--plate); border: 1px solid var(--rule); border-radius: 3px; padding: 1.1rem 1.2rem; display: grid; gap: 0.5rem; align-content: start; min-width: 0; }
-.pillar p { color: var(--ink); }
 .goes { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.2rem; }
 .goes span { font-family: var(--label); font-size: 0.76rem; letter-spacing: 0.08em; color: var(--gold); border: 1px solid var(--rule); border-radius: 999px; padding: 0.1rem 0.6rem; }
 
@@ -88,12 +161,30 @@ section { display: grid; gap: 1.2rem; }
 .voice .label { margin: 0; }
 .voice p { font-style: italic; min-width: 0; }
 .eyes { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; }
-.eyes figure { margin: 0; display: grid; gap: 0.4rem; }
+.eyes figure { display: grid; gap: 0.4rem; }
 .eyes blockquote { margin: 0; font-style: italic; }
-@media (max-width: 32rem) { .step, .voice { grid-template-columns: 1fr; gap: 0.2rem; } }
+
+@media (max-width: 36rem) {
+  .card-wrap { grid-template-columns: 1fr; }
+  .win-body { grid-template-columns: 1fr; }
+  .list { border-right: 0; border-bottom: 1px solid var(--rule); }
+  .step, .voice { grid-template-columns: 1fr; gap: 0.2rem; }
+}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-cloth" viewBox="0 0 24 24"><path d="M4 7l8-3 8 3v10l-8 3-8-3z M4 7l8 3 8-3 M12 10v10 M7 9.2v8.6 M16.8 8.9v9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><ellipse cx="7" cy="12" rx="3" ry="6.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 5.5h10c1.7 0 3 2.9 3 6.5s-1.3 6.5-3 6.5H7 M11 6v12 M15 6v12" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+    <symbol id="i-wool" viewBox="0 0 24 24"><path d="M5 15c-2-1-2-4 0-5 0-3 3-4 5-2 1-3 5-3 6 0 2-1 4 1 3 3 2 1 1.5 4-.5 4.5-1 2.5-4 2.5-5 1-1.5 1.5-4 1.5-5 0-2 .5-3.5-.5-3.5-1.5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+    <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+    <symbol id="i-flask" viewBox="0 0 24 24"><path d="M10 3h4 M10.5 3v5L6 17c-.8 1.7.3 4 2.2 4h7.6c1.9 0 3-2.3 2.2-4l-4.5-9V3 M7.6 14h8.8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+    <symbol id="i-mask" viewBox="0 0 24 24"><path d="M3 9c3-1.5 15-1.5 18 0-.3 4-2.5 6-5 6-1.7 0-2.6-1.4-4-1.4S9.7 15 8 15c-2.5 0-4.7-2-5-6z M7 10.5h3 M14 10.5h3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+    <symbol id="i-cursor" viewBox="0 0 16 20"><path d="M1.5 1.5v14l3.6-3.3 2.6 5.8 2.6-1.2-2.6-5.7 4.9-.3z" fill="var(--win)" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
 <div class="wrap">
   <header class="hero">
     <p class="eyebrow">An addon for World of Warcraft: Forever</p>
@@ -104,27 +195,45 @@ section { display: grid; gap: 1.2rem; }
 
   <section>
     <h2>An evening in the Timeline</h2>
-    <div class="day">
-      <p class="label">Monday, October 12</p>
-      <div class="card">
-        <p class="kind">Work in the dungeons</p>
-        <p>There are tasks in <span class="link">the Deadmines</span> for someone of your experience now.</p>
-      </div>
-      <div class="entry">
-        <p class="kind">Journey</p>
-        <h3>A rumor regarding the Deadmines</h3>
-        <p>Innkeeper Farley told me that Gryan Stoutmantle, in <span class="link">Sentinel Hill</span>, may have a task that leads to <span class="link">the Deadmines</span>.</p>
-      </div>
-      <div class="entry">
-        <p class="kind">Quests</p>
-        <h3>The Defias Brotherhood</h3>
-        <p>Gryan Stoutmantle told me that the Defias had driven the good people of <span class="link">Westfall</span> from their land, and he wanted someone among them to learn who led the gang and where it was hiding. He sent me to a rogue named Wiley, who owed him a favor, at the inn in <span class="link">Lakeshire</span>, east of Elwynn in the <span class="link">Redridge Mountains</span>. I found Wiley there. Wiley admitted that he owed Gryan, and heard me out.</p>
-      </div>
-      <div class="entry">
-        <p class="kind">Dungeons</p>
-        <h3>The Deadmines</h3>
-        <p>We cleared <span class="link">the Deadmines</span> for the first time this evening, and it took thirty minutes. <span class="link">Lyandra</span> and <span class="link">Torvald</span> went with me, and I did not die.</p>
-      </div>
+    <p class="intro">Chronicle is one window with a tab for each part of your records. The Timeline is the first: each day you play, told in your character's words.</p>
+    <div class="stage">
+      <figure class="win" aria-label="The Chronicle window on its Timeline tab">
+        <div class="tabs"><span class="on">Timeline</span><span>Journey</span><span>Atlas</span><span>Bestiary</span><span>Professions</span><span>Dungeons</span><span>Companions</span><span>Deeds</span></div>
+        <div class="win-body">
+          <div class="list">
+            <div class="li"><span>All</span></div>
+            <div class="li on"><span>Monday, October 12</span></div>
+            <div class="li"><span>Sunday, October 11</span></div>
+            <div class="li"><span>Saturday, October 10</span></div>
+            <div class="li"><span>Thursday, October 8</span></div>
+          </div>
+          <div class="page day">
+            <div class="figures"><span>Levels<b>1</b></span><span>Foes<b>64</b></span><span>Quests<b>7</b></span><span>Purse<b>+2g 14s</b></span></div>
+            <div class="entry">
+              <p class="kind">Journey</p>
+              <h3>A rumor regarding the Deadmines</h3>
+              <p>Innkeeper Farley told me that Gryan Stoutmantle, in <span class="link">Sentinel Hill</span>, may have a task that leads to <span class="link">the Deadmines</span>.</p>
+            </div>
+            <div class="entry">
+              <p class="kind">Quests</p>
+              <h3>The Defias Brotherhood</h3>
+              <p>Gryan Stoutmantle told me that the Defias had driven the good people of <span class="link">Westfall</span> from their land, and he wanted someone among them to learn who led the gang and where it was hiding. He sent me to a rogue named Wiley, who owed him a favor, at the inn in <span class="link">Lakeshire</span>, east of Elwynn in the <span class="link">Redridge Mountains</span>. I found Wiley there. Wiley admitted that he owed Gryan, and heard me out.</p>
+            </div>
+            <div class="entry">
+              <p class="kind">Dungeons</p>
+              <h3>The Deadmines</h3>
+              <p>We cleared <span class="link">the Deadmines</span> for the first time this evening, and it took thirty minutes. <span class="link">Lyandra</span> and <span class="link">Torvald</span> went with me, and I did not die.</p>
+            </div>
+          </div>
+        </div>
+      </figure>
+      <figure class="card-wrap">
+        <div class="card">
+          <p class="kind">Work in the dungeons</p>
+          <p>There are tasks in <span class="link">the Deadmines</span> for someone of your experience now.</p>
+        </div>
+        <figcaption class="aside">A card comes up on your screen as it happens. The Timeline keeps it afterward.</figcaption>
+      </figure>
     </div>
     <p class="aside">Every highlighted name leads somewhere: a place to the Atlas, the Deadmines to its page in Dungeons, a companion to everything you have done together.</p>
   </section>
@@ -138,25 +247,139 @@ section { display: grid; gap: 1.2rem; }
       <div class="step last"><p class="label">After a word with an innkeeper</p><p>Gryan Stoutmantle, in Sentinel Hill, may know of work in the Deadmines.</p></div>
     </div>
     <p class="intro">Innkeepers pass on rumors about the dungeons, and class trainers tell you who else can teach you. Each rumor is kept in the Timeline too. Then the chapter follows you through it:</p>
-    <div class="chapter">
-      <div class="row"><span class="mark">✓</span><p>The Defias Brotherhood <small>Completed on October 12, told in your own words</small></p></div>
-      <div class="row"><span class="mark">◆</span><p>The Defias Brotherhood <small>In your quest log</small></p></div>
-      <div class="row dim"><span class="mark">?</span><p>??? <small>Not found yet. No spoilers: a step stays hidden until you reach it.</small></p></div>
-    </div>
+    <figure class="win" aria-label="A dungeon chapter in the Journey tab">
+      <div class="tabs"><span>Timeline</span><span class="on">Journey</span><span>Atlas</span><span>Bestiary</span><span>Professions</span><span>Dungeons</span><span>Companions</span><span>Deeds</span></div>
+      <div class="win-body">
+        <div class="list">
+          <div class="li"><span>Overview</span><small>What to do next, and what is done</small></div>
+          <p class="head">Dungeons</p>
+          <div class="li on"><span>The Deadmines</span><small>1 of 5 steps completed</small></div>
+          <div class="li"><span>Wailing Caverns</span><small>Opens at level 17</small></div>
+        </div>
+        <div class="page">
+          <h4>The Deadmines</h4>
+          <p class="under">1 of 5 steps completed</p>
+          <div class="chapter">
+            <div class="row"><span class="mark">✓</span><p>The Defias Brotherhood <small>Completed on October 12, told in your own words</small></p></div>
+            <div class="row"><span class="mark">◆</span><p>The Defias Brotherhood <small>In your quest log</small></p></div>
+            <div class="row dim"><span class="mark">?</span><p>??? <small>Not found yet. No spoilers: a step stays hidden until you reach it.</small></p></div>
+          </div>
+        </div>
+      </div>
+    </figure>
   </section>
 
   <section>
     <h2>A database you build by playing</h2>
     <p class="intro">Chronicle writes down what you kill, loot, skin, gather, make, trade and finish, and each tab reads from the others. It knows only what you have done, so every number in it comes from your own play.</p>
-    <div class="sub">
+    <div class="group">
       <h3>Following one reagent</h3>
-      <div class="steps trail">
-        <div class="step"><p class="label">Professions</p><p>Bolt of Linen Cloth takes two Linen Cloth. Click the Linen Cloth.</p></div>
-        <div class="step"><p class="label">Bestiary</p><p>The Bestiary opens on a search for every foe that has dropped it. If foes in the zone you are in have dropped it, the search keeps to that zone. Each drop says how often you got it: <span class="stat">7 in total, from 5 of 38 kills (13%)</span>.</p></div>
-        <div class="step last"><p class="label">Atlas</p><p>On the foe's page, click a zone under Fought In. The Atlas map shows where you fought it, and you can set a waypoint.</p></div>
+      <div class="trail">
+
+        <div class="hop">
+          <div class="hop-head"><span class="n">1</span><p>In Professions, Bolt of Linen Cloth takes two Linen Cloth. Click the Linen Cloth.</p></div>
+          <figure class="win" aria-label="A tailoring recipe in the Professions tab">
+            <div class="tabs"><span>Timeline</span><span>Journey</span><span>Atlas</span><span>Bestiary</span><span class="on">Professions</span><span>Dungeons</span><span>Companions</span><span>Deeds</span></div>
+            <div class="win-body">
+              <div class="list">
+                <div class="ticks"><span class="tick">Skill up</span><span class="tick">Have materials</span><span class="tick">Unlearned</span></div>
+                <p class="head">Tailoring · Materials</p>
+                <div class="li on"><span>Bolt of Linen Cloth</span><small>Made 14 times</small></div>
+                <p class="head">Tailoring · Armor</p>
+                <div class="li"><span>Brown Linen Vest</span><small>Made twice</small></div>
+                <div class="li"><span>Heavy Linen Gloves</span><small>Not made yet</small></div>
+                <div class="li"><span>Linen Belt</span><small>Made once</small></div>
+              </div>
+              <div class="page">
+                <h4>Bolt of Linen Cloth</h4>
+                <p class="under">Learned</p>
+                <p class="cap">Reagents</p>
+                <div>
+                  <div class="slots"><span class="slot hot"><svg aria-hidden="true"><use href="#i-cloth"/></svg><b>2</b><svg class="cursor" aria-hidden="true"><use href="#i-cursor"/></svg></span></div>
+                  <div class="tip"><strong>Linen Cloth</strong><span class="g">Click to search in Bestiary</span></div>
+                </div>
+                <div class="btns"><span class="btn">Craft</span><span class="count">1</span><span class="btn">Craft all</span></div>
+                <span class="tick">Track this recipe</span>
+              </div>
+            </div>
+          </figure>
+        </div>
+
+        <div class="hop">
+          <div class="hop-head"><span class="n">2</span><p>The Bestiary opens on a search for every foe that has dropped it. You are in Westfall and foes there have dropped it, so the search keeps to Westfall. Each drop says how often you got it.</p></div>
+          <figure class="win" aria-label="A foe's page in the Bestiary, found by a search for Linen Cloth">
+            <div class="tabs"><span>Timeline</span><span>Journey</span><span>Atlas</span><span class="on">Bestiary</span><span>Professions</span><span>Dungeons</span><span>Companions</span><span>Deeds</span></div>
+            <div class="win-body">
+              <div class="list">
+                <p class="search">Linen Cloth Westfall</p>
+                <div class="li on"><span>Defias Trapper</span><small>Humanoid · 38 killed</small></div>
+                <div class="li"><span>Defias Smuggler</span><small>Humanoid · 21 killed</small></div>
+                <div class="li"><span>Defias Pathstalker</span><small>Humanoid · 9 killed</small></div>
+              </div>
+              <div class="page">
+                <h4>Defias Trapper</h4>
+                <p class="lore">These were Stormwind's own masons once, cheated of their wages after the war. I understand the grievance. I do not understand robbing honest folk over it.</p>
+                <p class="lore">I know how one of these fights now, and where to hit it.</p>
+                <div class="badges"><span>38 killed</span><span>Hostile</span><span>Seen in groups</span></div>
+                <p class="cap">Fought in</p>
+                <div class="rows"><div><span class="link">Westfall</span><span>38</span></div></div>
+                <p class="cap">Loot</p>
+                <div>
+                  <div class="slots">
+                    <span class="slot hot"><svg aria-hidden="true"><use href="#i-cloth"/></svg><b>7</b></span>
+                    <span class="slot"><svg aria-hidden="true"><use href="#i-coin"/></svg><b>12</b></span>
+                    <span class="slot"><svg aria-hidden="true"><use href="#i-wool"/></svg><b>2</b></span>
+                    <span class="slot"><svg aria-hidden="true"><use href="#i-flask"/></svg><b>3</b></span>
+                    <span class="slot"><svg aria-hidden="true"><use href="#i-mask"/></svg><b>1</b></span>
+                  </div>
+                  <div class="tip"><strong>Linen Cloth</strong><span>7 in total, from 5 of 38 kills (13%)</span><span class="g">Click to search in Bestiary</span></div>
+                </div>
+              </div>
+            </div>
+          </figure>
+        </div>
+
+        <div class="hop">
+          <div class="hop-head"><span class="n">3</span><p>Click Westfall under Fought In. The Atlas map lights up where you fought the Defias Trapper, and you can set a waypoint there.</p></div>
+          <figure class="win" aria-label="Westfall in the Atlas, lit where the Defias Trapper was fought">
+            <div class="tabs"><span>Timeline</span><span>Journey</span><span class="on">Atlas</span><span>Bestiary</span><span>Professions</span><span>Dungeons</span><span>Companions</span><span>Deeds</span></div>
+            <div class="win-body">
+              <div class="list">
+                <p class="head">Foes fought here</p>
+                <div class="li on"><span>Defias Trapper</span><small>38 killed</small></div>
+                <div class="li"><span>Defias Smuggler</span><small>21 killed</small></div>
+                <div class="li"><span>Riverpaw Gnoll</span><small>17 killed</small></div>
+                <p class="head">Gathered here</p>
+                <div class="li"><span>Peacebloom</span><small>11 gathered</small></div>
+                <p class="head">Quests done here</p>
+                <div class="li"><span>The Defias Brotherhood</span></div>
+              </div>
+              <div class="page">
+                <h4>Westfall</h4>
+                <svg class="map" viewBox="0 0 400 270" role="img" aria-label="A map of Westfall with two areas lit in blue and a waypoint pin">
+                  <rect class="ground" x="0" y="0" width="400" height="270"/>
+                  <path class="sea" d="M0 0h58c-10 30 6 52-6 80s10 60-4 92 8 60-2 98H0z"/>
+                  <path class="line" d="M58 0c-10 30 6 52-6 80s10 60-4 92 8 60-2 98"/>
+                  <path class="road" d="M400 66c-60 6-110 4-150 30s-40 70-62 98-50 44-80 60 M250 96c30 20 70 30 110 70"/>
+                  <path class="lit" d="M176 22c30-8 66 2 72 22s-14 40-44 42-52-8-54-28 6-30 26-36z"/>
+                  <path class="lit" d="M106 196c24-12 60-10 70 8s-6 38-34 42-50-4-52-22 2-22 16-28z"/>
+                  <circle class="town" cx="214" cy="128" r="4"/><text x="224" y="132">Sentinel Hill</text>
+                  <circle class="town" cx="140" cy="222" r="4"/><text x="152" y="262">Moonbrook</text>
+                  <text x="192" y="14">Jangolode Mine</text>
+                  <text x="290" y="200">The Dust Plains</text>
+                  <path class="pin" d="M140 196c-7 0-12 5-12 11 0 8 12 19 12 19s12-11 12-19c0-6-5-11-12-11z"/>
+                  <circle cx="140" cy="207" r="3.5" fill="var(--win)"/>
+                </svg>
+                <div class="btns"><span class="btn">Show everything</span></div>
+              </div>
+            </div>
+          </figure>
+        </div>
+
       </div>
       <p class="intro">A herb, ore or hide goes to your gathering log instead: how many you have gathered, how many are in your bags and bank, and each zone you gathered it in. Click a zone and the Atlas map shows where you picked it up. A reagent you can make yourself goes to its own recipe.</p>
     </div>
+
     <div class="web">
       <div class="pillar">
         <h3>Journey</h3>
@@ -189,7 +412,7 @@ section { display: grid; gap: 1.2rem; }
         <div class="goes"><span>Runs to Dungeons</span><span>Foes to the Bestiary</span></div>
       </div>
     </div>
-    <div class="sub">
+    <div class="group">
       <h3>More of the same</h3>
       <ul class="apart">
         <li><b>Search by what drops.</b> Type a thing's name in the Atlas and it lists the foes that dropped it, zone by zone. In Professions, the same search lists every recipe that takes it.</li>
@@ -200,7 +423,7 @@ section { display: grid; gap: 1.2rem; }
         <li><b>New recipes.</b> A recipe learned at a trainer leads from its Timeline entry straight to the recipe in Professions.</li>
       </ul>
     </div>
-    <p class="aside">The Timeline and Deeds are linked the same way, and every tab has a search box.</p>
+    <p class="aside">The Timeline and Deeds are linked the same way, and every tab has a search box. The screens on this page are drawn from the addon's own layout and words; in the game they wear its parchment art and the game's own icons.</p>
   </section>
 
   <section>
@@ -226,6 +449,5 @@ section { display: grid; gap: 1.2rem; }
     </div>
   </section>
 </div>
-
 </body>
 </html>
