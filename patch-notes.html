@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Chronicle Patch Notes</title>
+<meta name="description" content="What changed in each version of Chronicle, an addon for World of Warcraft: Forever.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Alegreya:ital,wght@0,400;0,500;1,400&family=Alegreya+Sans+SC:wght@500&display=swap">
+<style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;padding:0}[hidden]{display:none!important}</style>
+<style>
+/* Layout: one reading column on the addon's own two grounds (its Dark theme and its parchment). The addon's screens are drawn into
+   the page as small windows (its tab strip, a list on the left, the chosen thing's page on the right), so a reader who has never
+   seen it can see where each thing lives: an evening in the Timeline, a Journey chapter, then one reagent followed through three tabs. */
+:root {
+  --ground: #e6d4ad;
+  --plate: #d8c295;
+  --plate-2: #cdb588;
+  --ink: #2f281e;
+  --ink-soft: #64584a;
+  --gold: #8a5c12;
+  --rule: #b89f72;
+  --win: #efe3c6;
+  --frame: #7d6646;
+  --map: #dcc796;
+  --map-line: #a78c5e;
+  --mark: #2f62a8;
+  --tip-bg: #1b1916;
+  --tip-ink: #ece4d3;
+  --tip-gold: #e3b84a;
+  --display: "Marcellus", "Palatino Linotype", Palatino, Georgia, serif;
+  --body: "Alegreya", "Palatino Linotype", Palatino, Georgia, serif;
+  --label: "Alegreya Sans SC", "Gill Sans", "Trebuchet MS", sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --ground: #171513; --plate: #221f1b; --plate-2: #2b2722; --ink: #cbc5ba; --ink-soft: #92897c; --gold: #e3b84a; --rule: #3a342c;
+  --win: #1d1a17; --frame: #4d4337; --map: #2a251f; --map-line: #4f463a; --mark: #6f9fe6; color-scheme: dark;
+} }
+:root[data-theme="dark"] { --ground: #171513; --plate: #221f1b; --plate-2: #2b2722; --ink: #cbc5ba; --ink-soft: #92897c; --gold: #e3b84a; --rule: #3a342c;
+  --win: #1d1a17; --frame: #4d4337; --map: #2a251f; --map-line: #4f463a; --mark: #6f9fe6; color-scheme: dark; }
+
+body { background: var(--ground); color: var(--ink); font: 400 1.075rem/1.6 var(--body); }
+.wrap { max-width: 46rem; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 3.5rem 4.5rem; display: grid; gap: 3.5rem; }
+h1, h2, h3, h4 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(2.8rem, 9vw, 4.2rem); line-height: 1; letter-spacing: 0.02em; }
+h2 { font-size: 1.6rem; line-height: 1.2; }
+h3 { font-size: 1.2rem; line-height: 1.25; }
+p { margin: 0; }
+.eyebrow, .label { font-family: var(--label); font-size: 0.82rem; letter-spacing: 0.12em; color: var(--ink-soft); }
+.lede { font-size: 1.35rem; line-height: 1.4; max-width: 32ch; }
+.hero { display: grid; gap: 1.1rem; }
+.hero .thesis { max-width: 36rem; color: var(--ink-soft); }
+.link { color: var(--gold); }
+section { display: grid; gap: 1.2rem; }
+.intro { color: var(--ink-soft); max-width: 38rem; }
+.group { display: grid; gap: 0.9rem; }
+.aside { color: var(--ink-soft); font-size: 0.98rem; font-style: italic; }
+
+/* ---- a drawn window of the addon: tab strip, list, page ---- */
+.win { border: 2px solid var(--frame); background: var(--win); border-radius: 3px; overflow: hidden; min-width: 0; font-size: 0.95rem; line-height: 1.45; }
+.tabs { display: flex; gap: 0.15rem; padding: 0.45rem 0.6rem 0; border-bottom: 1px solid var(--rule); overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tabs span { font-family: var(--label); font-size: 0.78rem; letter-spacing: 0.06em; color: var(--ink-soft); padding: 0.3rem 0.55rem 0.4rem; white-space: nowrap; }
+.tabs .on { color: var(--ink); background: var(--plate); box-shadow: inset 0 -2px 0 var(--gold); }
+.win-body { display: grid; grid-template-columns: minmax(0, 12.5rem) minmax(0, 1fr); }
+.list { border-right: 1px solid var(--rule); padding-block: 0.55rem; display: grid; align-content: start; }
+.search { margin: 0 0.6rem 0.45rem; border: 1px solid var(--rule); background: var(--ground); padding: 0.15rem 0.5rem; color: var(--ink); font-size: 0.88rem; }
+.search::before { content: "\2315\00a0"; color: var(--ink-soft); }
+.head { font-family: var(--label); font-size: 0.7rem; letter-spacing: 0.14em; color: var(--ink-soft); padding: 0.45rem 0.9rem 0.15rem; }
+.li { position: relative; padding: 0.35rem 0.7rem 0.35rem 0.95rem; display: grid; }
+.li small { color: var(--ink-soft); font-size: 0.8rem; line-height: 1.3; }
+.li.on { background: var(--plate); }
+.li.on::before { content: ""; position: absolute; left: 0; top: 0.3rem; bottom: 0.3rem; width: 3px; background: var(--gold); }
+.page { padding: 0.9rem 1rem 1.05rem; display: grid; gap: 0.65rem; align-content: start; min-width: 0; }
+.page h4 { font-size: 1.18rem; line-height: 1.2; }
+.page .under { color: var(--ink-soft); font-size: 0.85rem; margin-top: -0.45rem; }
+.cap { font-family: var(--label); font-size: 0.7rem; letter-spacing: 0.14em; color: var(--ink-soft); margin-bottom: -0.3rem; }
+.badges { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.badges span { font-family: var(--label); font-size: 0.72rem; letter-spacing: 0.05em; color: var(--ink-soft); border: 1px solid var(--rule); padding: 0 0.45rem; }
+.rows { display: grid; gap: 0.1rem; }
+.rows div { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.9rem; }
+.rows div span:last-child { color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.slots { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.slot { width: 2.5rem; height: 2.5rem; border: 1px solid var(--rule); background: var(--plate-2); display: grid; place-items: center; position: relative; color: var(--ink-soft); }
+.slot svg { width: 1.45rem; height: 1.45rem; }
+.slot b { position: absolute; right: 0.18rem; bottom: -0.05rem; font: 500 0.72rem var(--label); color: var(--ink); }
+.slot.hot { outline: 2px solid var(--gold); outline-offset: 1px; color: var(--ink); }
+.cursor { position: absolute; right: -0.7rem; bottom: -0.85rem; width: 1.05rem; height: 1.3rem; color: var(--ink); z-index: 1; }
+.tip { justify-self: start; position: relative; display: grid; gap: 0.15rem; max-width: 17rem; background: var(--tip-bg); color: var(--tip-ink); border: 1px solid var(--frame); padding: 0.45rem 0.65rem 0.5rem; font-size: 0.86rem; line-height: 1.35; margin-top: 0.35rem; }
+.tip::before { content: ""; position: absolute; top: -0.42rem; left: var(--at, 0.9rem); width: 0.7rem; height: 0.7rem; background: var(--tip-bg); border-left: 1px solid var(--frame); border-top: 1px solid var(--frame); transform: rotate(45deg); }
+.tip strong { font-weight: 500; }
+.tip .g { color: var(--tip-gold); font-size: 0.8rem; margin-top: 0.15rem; }
+.btns { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+.btn { font-family: var(--label); font-size: 0.8rem; letter-spacing: 0.05em; border: 1px solid var(--frame); background: var(--plate); padding: 0.15rem 0.75rem; }
+.count { border: 1px solid var(--rule); background: var(--ground); padding: 0.1rem 0.6rem; font-size: 0.85rem; }
+.ticks { display: flex; flex-wrap: wrap; gap: 0.2rem 0.8rem; padding: 0 0.9rem 0.45rem; font-size: 0.82rem; color: var(--ink-soft); }
+.tick::before { content: ""; display: inline-block; width: 0.7rem; height: 0.7rem; border: 1px solid var(--frame); margin-right: 0.3rem; vertical-align: -0.05rem; }
+.tick.on { color: var(--ink); }
+.tick.on::before { background: var(--gold); box-shadow: inset 0 0 0 2px var(--win); }
+.lore { font-style: italic; }
+.fig { display: grid; gap: 0.5rem; }
+.fig figcaption { color: var(--ink-soft); font-size: 0.92rem; font-style: italic; }
+figure { margin: 0; }
+
+/* the Timeline inside its window, and the card beside it */
+.day { display: grid; gap: 0.9rem; }
+.figures { display: flex; flex-wrap: wrap; gap: 0.3rem 1.2rem; border-bottom: 1px solid var(--rule); padding-bottom: 0.55rem; }
+.figures span { font-family: var(--label); font-size: 0.72rem; letter-spacing: 0.1em; color: var(--ink-soft); }
+.figures b { font-family: var(--body); font-weight: 500; font-size: 0.95rem; letter-spacing: 0; color: var(--ink); margin-left: 0.25rem; font-variant-numeric: tabular-nums; }
+.entry { display: grid; gap: 0.2rem; padding-left: 0.85rem; border-left: 2px solid var(--rule); }
+.entry h3 { font-size: 1.05rem; }
+.entry .kind, .card .kind { font-family: var(--label); font-size: 0.72rem; letter-spacing: 0.12em; color: var(--ink-soft); }
+.stage { display: grid; gap: 1rem; }
+.card { background: var(--plate); border: 2px solid var(--frame); border-radius: 3px; padding: 0.9rem 1.05rem; display: grid; gap: 0.3rem; }
+.card-wrap { display: grid; grid-template-columns: minmax(0, 20rem) minmax(0, 1fr); gap: 1rem; align-items: center; }
+/* the one-line notices (pills): a round icon in a ring on a round-ended paper plate */
+.pills { display: grid; gap: 0.4rem; justify-items: start; }
+.pill { display: inline-flex; align-items: center; gap: 0.55rem; max-width: 100%; background: var(--plate); border: 1px solid var(--frame); border-radius: 999px; padding: 0.2rem 0.95rem 0.2rem 0.25rem; font-size: 0.9rem; line-height: 1.3; }
+.pill .ring { flex: none; width: 1.75rem; height: 1.75rem; border-radius: 50%; border: 2px solid var(--frame); background: var(--plate-2); display: grid; place-items: center; color: var(--ink-soft); }
+.pill .ring svg { width: 1rem; height: 1rem; }
+.pill .act { flex: none; font-family: var(--label); font-size: 0.74rem; letter-spacing: 0.04em; border-radius: 999px; padding: 0.02rem 0.6rem; background: var(--gold); color: var(--win); margin-left: 0.2rem; }
+.pill.back { opacity: 0.6; margin-top: -0.85rem; margin-left: 0.6rem; }
+.mk { display: inline-block; width: 1.4rem; text-align: center; font-family: var(--display); }
+.mk.yes { color: var(--gold); }
+.mk.not { color: var(--ink-soft); }
+
+/* the hint as it grows */
+.steps { display: grid; gap: 0; border: 1px solid var(--rule); border-radius: 3px; background: var(--plate); }
+.step { display: grid; grid-template-columns: 11rem 1fr; gap: 1rem; padding: 0.9rem 1.1rem; align-items: baseline; }
+.step + .step { border-top: 1px solid var(--rule); }
+.step .label { margin: 0; }
+.step p { min-width: 0; }
+.step.last { background: var(--plate-2); }
+.chapter { display: grid; gap: 0.5rem; }
+.row { display: grid; grid-template-columns: 1.4rem 1fr; gap: 0.5rem; align-items: baseline; }
+.row .mark { font-family: var(--display); text-align: center; color: var(--gold); }
+.row.dim { color: var(--ink-soft); }
+.row.dim .mark { color: var(--ink-soft); }
+.row small { display: block; color: var(--ink-soft); font-size: 0.82rem; }
+
+/* one reagent through three tabs */
+.trail { display: grid; gap: 1.6rem; }
+.hop { display: grid; gap: 0.6rem; }
+.hop-head { display: grid; grid-template-columns: 2rem 1fr; gap: 0.75rem; align-items: baseline; }
+.hop-head .n { font-family: var(--display); font-size: 1.35rem; color: var(--gold); text-align: center; border: 1px solid var(--rule); line-height: 1.6; }
+.hop-head p { min-width: 0; }
+.map { display: block; width: 100%; height: auto; }
+.map .ground { fill: var(--map); }
+.map .sea { fill: var(--plate-2); }
+.map .line { fill: none; stroke: var(--map-line); stroke-width: 2; }
+.map .road { fill: none; stroke: var(--map-line); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.map .lit { fill: var(--mark); fill-opacity: 0.22; stroke: var(--mark); stroke-width: 2; }
+.map text { font-family: var(--label); font-size: 11px; letter-spacing: 0.08em; fill: var(--ink-soft); }
+.map .town { fill: var(--ink-soft); }
+.map .pin { fill: var(--gold); stroke: var(--win); stroke-width: 1.5; }
+
+/* the tabs that feed each other */
+.web { display: grid; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); gap: 1rem; }
+.pillar { background: var(--plate); border: 1px solid var(--rule); border-radius: 3px; padding: 1.1rem 1.2rem; display: grid; gap: 0.5rem; align-content: start; min-width: 0; }
+.goes { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.2rem; }
+.goes span { font-family: var(--label); font-size: 0.76rem; letter-spacing: 0.08em; color: var(--gold); border: 1px solid var(--rule); border-radius: 999px; padding: 0.1rem 0.6rem; }
+
+.apart { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.8rem; }
+.apart li { padding-left: 1.1rem; position: relative; }
+.apart li::before { content: ""; position: absolute; left: 0; top: 0.68em; width: 0.4rem; height: 0.4rem; border: 1px solid var(--gold); transform: rotate(45deg); }
+.apart b { font-weight: 500; }
+.news { color: var(--ink-soft); }
+.news a { color: var(--gold); }
+
+.voices { display: grid; border-top: 1px solid var(--rule); }
+.voice { display: grid; grid-template-columns: 6.5rem 1fr; gap: 1rem; padding: 0.7rem 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
+.voice .label { margin: 0; }
+.voice p { font-style: italic; min-width: 0; }
+.eyes { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; }
+.eyes figure { display: grid; gap: 0.4rem; }
+.eyes blockquote { margin: 0; font-style: italic; }
+
+@media (max-width: 36rem) {
+  .card-wrap { grid-template-columns: 1fr; }
+  .win-body { grid-template-columns: 1fr; }
+  .list { border-right: 0; border-bottom: 1px solid var(--rule); }
+  .step, .voice { grid-template-columns: 1fr; gap: 0.2rem; }
+}
+
+.notes-head { display: grid; gap: 0.9rem; }
+.back { font-family: var(--label); font-size: 0.82rem; letter-spacing: 0.12em; color: var(--gold); text-decoration: none; }
+.back:hover { text-decoration: underline; }
+.version { display: grid; gap: 1rem; border-top: 1px solid var(--rule); padding-top: 1.6rem; }
+.version .when { font-family: var(--label); font-size: 0.82rem; letter-spacing: 0.12em; color: var(--ink-soft); }
+.version h2 a { color: inherit; text-decoration: none; }
+.version h3 { margin-top: 0.6rem; color: var(--gold); }
+.version ul { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.45rem; }
+.version ul ul { margin-top: 0.4rem; }
+.version li::marker { color: var(--gold); }
+.version b { font-weight: 500; }
+.version code { font-family: Consolas, "Courier New", monospace; font-size: 0.92em; }
+.version > p { color: var(--ink-soft); }
+details.version > summary { cursor: pointer; list-style: none; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 1rem; }
+details.version > summary::-webkit-details-marker { display: none; }
+details.version > summary::before { content: "\25B8"; color: var(--gold); font-size: 0.9rem; }
+details.version[open] > summary::before { content: "\25BE"; }
+details.version > summary h2 { font-size: 1.35rem; }
+details.version .body { display: grid; gap: 1rem; padding-top: 1rem; }
+.older { display: grid; gap: 1.4rem; }
+.older-label { font-family: var(--label); font-size: 0.82rem; letter-spacing: 0.12em; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="notes-head">
+    <a class="back" href="./">← Chronicle</a>
+    <h1>Patch Notes</h1>
+    <p class="lede">What changed in each version, newest first.</p>
+  </header>
+
+  <article class="version" id="v1-4-141">
+    <p class="when">Newest · November 8, 2026</p>
+    <h2><a href="#v1-4-141">1.4.141</a></h2>
+    <p>Everything since 1.4.132.</p><h3>The level-up, remade</h3><ul><li><b>A new banner at the top of the screen.</b> Your class crest sits in a round seal, darkened, showing the level you had. Then the number steps up to the new one with WoW’s own level-up sound and a chime. The seal pulses, a sheen sweeps across it, it lights up from inside, and soft rays of light turn behind it. Then a pill unrolls beneath it, saying your character reached the new level.</li><li><b>It stays for the whole celebration</b> and leaves with the two windows.</li><li><b>The Attributes window opens at your new level</b>, since the banner has already counted it up. Each attribute and skill lights up with the same highlight as the lists in the Chronicle window.</li></ul><h3>Choose your notifications</h3><ul><li><b>A new page in Settings, “Notify me of”,</b> lists every kind of notification by group: Foes, Deaths, Quests, Journey, Dungeons, Professions, Places and travel, Merchants, Companions, Trophies and milestones, Class skills and Level-ups.</li><li><b>Untick a group to hide all of it</b>, or untick single kinds inside it. Unticking a group hides its list too, and each kind keeps its own setting for when you tick the group again.</li><li>The old “New foe pills” and “New skill pills” switches are part of this list now. If you’d turned either off, it stays off.</li></ul><h3>More pills</h3><ul><li><b>New pills for things that were only in the Timeline:</b> quests you finish, take on or give up (“You finished a task in Westfall.”), a dungeon run that ended before its last boss, a trade, things you made that you sold or gave to another player, and milestones.</li><li><b>Several at once join up</b> (“You took on three tasks.”).</li><li><b>Clicking any pill that has no page of its own</b>, such as a trophy or new skills, opens its entry in the Timeline.</li><li><b>No more count badge</b> at the end of a pill; the sentence already says how many.</li><li><b>Pills sit a little higher by default</b>, clear of the quest progress messages at the top of the screen. “Pill position: Reset” puts them there.</li></ul><h3>Dungeons</h3><ul><li><b>“Other foes”:</b> good loot from a dungeon’s ordinary foes (blue quality or better) now has its own row after the bosses, on the dungeon’s page in the Journey and in the Bestiary. It shows how many of your runs there saw each item.</li></ul><h3>Smaller things</h3><ul><li><b>A quest you give up</b> now shows a red X drawn to match the other quest marks, over its zone’s picture.</li></ul>
+  </article>
+
+  <section class="older">
+    <p class="older-label">Earlier versions</p>
+    <details class="version" id="v1-4-132">
+      <summary><h2>1.4.132</h2><span class="when">November 8, 2026</span></summary>
+      <div class="body"><p>Everything since 1.4.101.</p><h3>Notifications are pills now</h3><ul><li><b>Most notices are one line.</b> A new foe, a recipe or skill learned, something gathered for the first time, a trophy, a death, a dungeon cleared, a sale at a merchant and the rest now show as a slim one-line “pill” on the card’s own paper, with a round icon. Only a new place or capital keeps the full card, and a new level keeps its celebration.</li><li><b>Point at a pill to read more.</b> Its tooltip has everything the old card said: a boss’s own description, the facts of a run, a hint of where to go next.</li><li><b>Click a pill to open its page</b> in the Chronicle window, or right-click it to put it away.</li><li><b>The same kind join up.</b> Several new foes from one pull become “Three foes were added to your Bestiary.”, with a count.</li><li><b>Two pills have a button:</b> a death has “Swear vengeance”, and a dungeon clear in a group has “Thank the party”.</li><li><b>New notices:</b> a new flight path, a new companion, and a dungeon entered for the first time.</li><li><b>Flights:</b> the ticket is a pill at the top of the others with the time left. When you land it fades away and “You landed in …” comes in.</li></ul><h3>Placing and sizing them</h3><ul><li><b>Pills and cards have their own places.</b> By default the pills sit at the top of the screen in the middle, and the cards sit just above your chat window. Drag a card or a pill to move them; dragging near the middle of the screen snaps to the center.</li><li><b>Pills off to one side line up by that edge</b>, so they stay neat on the left or right of the screen.</li><li><b>New settings under Settings → Notifications</b> (the page that was “Cards”):<ul><li>“Pill size”, apart from “Card size”.</li><li>“Pills with the cards”, to keep them together instead.</li><li>“Stack the pills”: one at a time with the next ones peeking out behind (the default), or all at once.</li><li>“Lock in place”, so you can’t drag them by accident.</li><li>“Escape puts them away”: turn it off and Escape no longer dismisses cards, pills or the level-up celebration.</li><li>“Show a test card” and “Show a test pill”, to place and size them, plus a reset for each one’s position.</li></ul></li><li>If you’d changed any of these settings before, they’re kept.</li></ul><h3>The Bestiary and the Journey</h3><ul><li><b>Nearly every dungeon boss has its own description and picture</b>, from the Deadmines to Blackrock Spire, Dire Maul, Scholomance, Stratholme and Forever’s own new dungeons. (The Karazhan Crypts and Manor Mistmantle come later.)</li><li><b>The Bestiary groups undead and mechanical foes by what they are</b>, and bosses stand alone. Totems and wards are no longer counted as foes.</li><li><b>A run’s page names the run</b> (“Your first run”), with its date and its best loot as the picture.</li><li><b>Clicking a run in a companion’s history</b> opens that run in the Journey and scrolls to it.</li></ul><h3>Fixes</h3><ul><li><b>Escape closing a merchant</b> no longer swallows the notice for your sale.</li><li><b>A link to a recipe or something gathered</b> always shows it in Professions, even if your filters would have hidden it.</li><li><b>A night elf’s line about going deep underground</b> names Elune instead of the sky.</li><li><b>The Hall of Thanes</b> ends with its real final boss.</li></ul></div>
+    </details>
+    <details class="version" id="v1-4-101">
+      <summary><h2>1.4.101</h2><span class="when">November 8, 2026</span></summary>
+      <div class="body"><p>Everything since 1.4.11.</p><h3>The Journey</h3><ul><li><b>Dungeons now live in the Journey.</b> The Dungeons tab is gone. Each dungeon has its own page in the Journey, with a header showing its picture, name and progress.</li><li><b>A dungeon’s page has a quest list, bosses and runs.</b> Quests you can take come first, then quests you can’t take yet, then finished ones. Bosses link to their page in the Bestiary. Runs are listed by date, and each run shows the loot seen in that run and who went with you.</li><li><b>Quest chains fold into one row.</b> The row shows a small stack behind its icon. Click it to open the chain, with a line joining each quest to the next.</li><li><b>Class chapters use the same layout.</b> A chapter’s quests are listed in story order, joined by a line. Clicking a quest opens its details on the right.</li><li><b>Quests use WoW’s own marks:</b> a yellow ! means you can take it, a gray ! means not yet, “...” means it’s in your quest log, and a gold check means it’s done. Each mark sits over a picture of the quest’s zone. The marks are sharper now, too.</li><li><b>Clearer quest status:</b> a quest waiting on an earlier one says “Needs another quest first” instead of showing a level, and a chain shows its level and how many of its quests are done.</li><li><b>The overview is simpler:</b> class and dungeons sit side by side as small tiles, each leading to its page.</li><li><b>A setting to collapse quest chains:</b> each chain shows only its latest quest until you open it.</li><li><b>Fixes:</b> quests you could already take showed a gray mark (they’re yellow now), dungeon breadcrumbs you never took no longer show up in their chapter, and a night elf druid is no longer sent to Dalaran.</li><li><b>The Bestiary groups foes by what they are:</b> a zone’s Defias, Gnolls, Murlocs, Wolves and so on are each one row that opens to show them. Clans join their race (Riverpaw are Gnolls), and named foes join their own people.</li><li><b>A foe’s Bestiary description</b> is the line its card showed, sometimes followed by a line of your race’s or class’s own.</li></ul><h3>Look and feel</h3><ul><li><b>Lists highlight the chosen row</b> with a leather plate and light the inside of its icon. Hovering a row shows a lighter version, and both fade in and out smoothly in every tab.</li><li><b>The window header is one row.</b> The Deeds tab is gone.</li><li><b>Progress bars are smooth and blue</b>, and look the same in every tab.</li><li><b>A companion’s History</b> no longer collapses.</li><li><b>In the dark theme</b>, list rows no longer have a plate behind them all the time.</li><li><b>The Bestiary’s zones</b> use the Atlas’s zone pictures.</li><li><b>The Bestiary and Atlas sidebars</b> collapse by section, like the Journey’s.</li><li><b>Section headings</b> no longer have a line under them.</li></ul><h3>Other changes</h3><ul><li><b>Hall of Thanes:</b> its second boss is now named Magmatus, and his loot is kept.</li><li><b>Foe cards:</b> every kind of foe has many more card lines, used in turn so they don’t repeat for a long while.</li><li><b>Professions:</b> cards and Timeline links open the right recipe even while you’re looking at another character’s professions, the tab opens its profession properly, the craft buttons keep their hover, and a recipe you’re short materials for keeps its icon in full color.</li><li><b>Class trainer:</b> your trainer’s filters are put back as soon as Chronicle has read the list, and a talent you pick is no longer reported as a new skill.</li><li><b>Map:</b> the foe and gathering hotspots are blue again.</li><li><b>Kobold Diggers</b> count as kobolds, and the Deadmines’ goblin crafters as goblins (they were filed under the Defias).</li><li><b>Dungeon entrances</b> have their own place descriptions, the Deadmines among them.</li><li><b>Close calls:</b> a party fight no longer triggers a false close call.</li><li><b>Sharing between your characters:</b> a dungeon’s boss kills count every character’s again, and a dungeon only your other characters have entered shows up faded in the Journey.</li><li><b>No quest completion cards for notable quests.</b> The Timeline still records them.</li></ul></div>
+    </details>
+  </section>
+</div>
+<script>
+// a link to an earlier version opens it
+function openFromHash() { var el = location.hash && document.getElementById(location.hash.slice(1)); if (el && el.tagName === 'DETAILS') { el.open = true; el.scrollIntoView(); } }
+window.addEventListener('hashchange', openFromHash); openFromHash();
+</script>
+</body>
+</html>

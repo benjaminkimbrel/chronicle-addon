@@ -114,6 +114,16 @@ figure { margin: 0; }
 .stage { display: grid; gap: 1rem; }
 .card { background: var(--plate); border: 2px solid var(--frame); border-radius: 3px; padding: 0.9rem 1.05rem; display: grid; gap: 0.3rem; }
 .card-wrap { display: grid; grid-template-columns: minmax(0, 20rem) minmax(0, 1fr); gap: 1rem; align-items: center; }
+/* the one-line notices (pills): a round icon in a ring on a round-ended paper plate */
+.pills { display: grid; gap: 0.4rem; justify-items: start; }
+.pill { display: inline-flex; align-items: center; gap: 0.55rem; max-width: 100%; background: var(--plate); border: 1px solid var(--frame); border-radius: 999px; padding: 0.2rem 0.95rem 0.2rem 0.25rem; font-size: 0.9rem; line-height: 1.3; }
+.pill .ring { flex: none; width: 1.75rem; height: 1.75rem; border-radius: 50%; border: 2px solid var(--frame); background: var(--plate-2); display: grid; place-items: center; color: var(--ink-soft); }
+.pill .ring svg { width: 1rem; height: 1rem; }
+.pill .act { flex: none; font-family: var(--label); font-size: 0.74rem; letter-spacing: 0.04em; border-radius: 999px; padding: 0.02rem 0.6rem; background: var(--gold); color: var(--win); margin-left: 0.2rem; }
+.pill.back { opacity: 0.6; margin-top: -0.85rem; margin-left: 0.6rem; }
+.mk { display: inline-block; width: 1.4rem; text-align: center; font-family: var(--display); }
+.mk.yes { color: var(--gold); }
+.mk.not { color: var(--ink-soft); }
 
 /* the hint as it grows */
 .steps { display: grid; gap: 0; border: 1px solid var(--rule); border-radius: 3px; background: var(--plate); }
@@ -155,6 +165,8 @@ figure { margin: 0; }
 .apart li { padding-left: 1.1rem; position: relative; }
 .apart li::before { content: ""; position: absolute; left: 0; top: 0.68em; width: 0.4rem; height: 0.4rem; border: 1px solid var(--gold); transform: rotate(45deg); }
 .apart b { font-weight: 500; }
+.news { color: var(--ink-soft); }
+.news a { color: var(--gold); }
 
 .voices { display: grid; border-top: 1px solid var(--rule); }
 .voice { display: grid; grid-template-columns: 6.5rem 1fr; gap: 1rem; padding: 0.7rem 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
@@ -181,6 +193,10 @@ figure { margin: 0; }
     <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
     <symbol id="i-flask" viewBox="0 0 24 24"><path d="M10 3h4 M10.5 3v5L6 17c-.8 1.7.3 4 2.2 4h7.6c1.9 0 3-2.3 2.2-4l-4.5-9V3 M7.6 14h8.8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
     <symbol id="i-mask" viewBox="0 0 24 24"><path d="M3 9c3-1.5 15-1.5 18 0-.3 4-2.5 6-5 6-1.7 0-2.6-1.4-4-1.4S9.7 15 8 15c-2.5 0-4.7-2-5-6z M7 10.5h3 M14 10.5h3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+    <symbol id="i-paw" viewBox="0 0 24 24"><circle cx="7" cy="9" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="6.5" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="17" cy="9" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 17c0-3 2-5.5 4-5.5s4 2.5 4 5.5c0 2-2 2.5-4 2.5s-4-.5-4-2.5z" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19C5 10 11 5 19 5c0 8-5 14-14 14z M5 19l8-8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M11.5 12H20 M17 12v3 M20 12v2.5" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+    <symbol id="i-skull" viewBox="0 0 24 24"><path d="M6 15c-1.5-1.2-2-3-2-5a8 8 0 0116 0c0 2-.5 3.8-2 5v3H6z M9 18v2 M12 18v2 M15 18v2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="9" cy="11" r="1.6" fill="currentColor"/><circle cx="15" cy="11" r="1.6" fill="currentColor"/></symbol>
     <symbol id="i-cursor" viewBox="0 0 16 20"><path d="M1.5 1.5v14l3.6-3.3 2.6 5.8 2.6-1.2-2.6-5.7 4.9-.3z" fill="var(--win)" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></symbol>
   </defs>
 </svg>
@@ -198,7 +214,7 @@ figure { margin: 0; }
     <p class="intro">Chronicle is one window with a tab for each part of your records. The Timeline is the first: each day you play, told in your character's words.</p>
     <div class="stage">
       <figure class="win" aria-label="The Chronicle window on its Timeline tab">
-        <div class="tabs"><span class="on">Timeline</span><span>Journey</span><span>Atlas</span><span>Bestiary</span><span>Professions</span><span>Dungeons</span><span>Companions</span><span>Deeds</span></div>
+        <div class="tabs"><span class="on">Timeline</span><span>Journey</span><span>Atlas</span><span>Bestiary</span><span>Professions</span><span>Companions</span></div>
         <div class="win-body">
           <div class="list">
             <div class="li"><span>All</span></div>
@@ -227,15 +243,17 @@ figure { margin: 0; }
           </div>
         </div>
       </figure>
-      <figure class="card-wrap">
-        <div class="card">
-          <p class="kind">Work in the dungeons</p>
-          <p>There are tasks in <span class="link">the Deadmines</span> for someone of your experience now.</p>
+      <figure class="fig">
+        <div class="pills" aria-label="Notices on screen">
+          <span class="pill"><span class="ring"><svg aria-hidden="true"><use href="#i-paw"/></svg></span>Mangy Wolf was added to your Bestiary.</span>
+          <span class="pill"><span class="ring"><svg aria-hidden="true"><use href="#i-leaf"/></svg></span>Peacebloom was added to Herbalism.</span>
+          <span class="pill"><span class="ring"><svg aria-hidden="true"><use href="#i-key"/></svg></span>The Deadmines holds tasks for you now.</span>
+          <span class="pill"><span class="ring"><svg aria-hidden="true"><use href="#i-skull"/></svg></span>Hogger very nearly killed you.</span>
         </div>
-        <figcaption class="aside">A card comes up on your screen as it happens. The Timeline keeps it afterward.</figcaption>
+        <figcaption class="aside">As things happen, a one-line notice comes up on your screen. Point at it to read more, click it to open its page. A new place gets a full card with what it is like. Move them, size them, stack them or turn them off; the Timeline keeps everything either way.</figcaption>
       </figure>
     </div>
-    <p class="aside">Every highlighted name leads somewhere: a place to the Atlas, the Deadmines to its page in Dungeons, a companion to everything you have done together.</p>
+    <p class="aside">Every highlighted name leads somewhere: a place to the Atlas, the Deadmines to its page in the Journey, a companion to everything you have done together.</p>
   </section>
 
   <section>
@@ -246,24 +264,32 @@ figure { margin: 0; }
       <div class="step"><p class="label">Once you've been to Westfall</p><p>Someone in Westfall may know of work in the Deadmines.</p></div>
       <div class="step last"><p class="label">After a word with an innkeeper</p><p>Gryan Stoutmantle, in Sentinel Hill, may know of work in the Deadmines.</p></div>
     </div>
-    <p class="intro">Innkeepers pass on rumors about the dungeons, and class trainers tell you who else can teach you. Each rumor is kept in the Timeline too. Then the chapter follows you through it:</p>
-    <figure class="win" aria-label="A dungeon chapter in the Journey tab">
-      <div class="tabs"><span>Timeline</span><span class="on">Journey</span><span>Atlas</span><span>Bestiary</span><span>Professions</span><span>Dungeons</span><span>Companions</span><span>Deeds</span></div>
+    <p class="intro">Innkeepers pass on rumors about the dungeons, and class trainers tell you who else can teach you. Each rumor is kept in the Timeline too. Then the dungeon's page in the Journey follows you through it: its quests, its bosses and every run you have made.</p>
+    <figure class="win" aria-label="A dungeon's page in the Journey tab">
+      <div class="tabs"><span>Timeline</span><span class="on">Journey</span><span>Atlas</span><span>Bestiary</span><span>Professions</span><span>Companions</span></div>
       <div class="win-body">
         <div class="list">
           <div class="li"><span>Overview</span><small>What to do next, and what is done</small></div>
+          <p class="head">Class</p>
+          <div class="li"><span>The Tome of Valor</span><small>2 of 4 completed</small></div>
           <p class="head">Dungeons</p>
-          <div class="li on"><span>The Deadmines</span><small>1 of 5 steps completed</small></div>
-          <div class="li"><span>Wailing Caverns</span><small>Opens at level 17</small></div>
+          <div class="li on"><span>The Deadmines</span><small>2 of 5 completed</small></div>
+          <div class="li"><span>Wailing Caverns</span><small>Its tasks open as you gain experience</small></div>
         </div>
         <div class="page">
           <h4>The Deadmines</h4>
-          <p class="under">1 of 5 steps completed</p>
+          <p class="under">2 of 5 completed · entered three times, cleared twice</p>
+          <p class="cap">Quests</p>
           <div class="chapter">
-            <div class="row"><span class="mark">✓</span><p>The Defias Brotherhood <small>Completed on October 12, told in your own words</small></p></div>
-            <div class="row"><span class="mark">◆</span><p>The Defias Brotherhood <small>In your quest log</small></p></div>
+            <div class="row"><span class="mark">✓</span><p>The Defias Brotherhood <small>Done, and told in your own words</small></p></div>
+            <div class="row"><span class="mark">…</span><p>Oh Brother. . . <small>In your quest log</small></p></div>
+            <div class="row"><span class="mark">!</span><p>Underground Assault <small>You can take it now</small></p></div>
             <div class="row dim"><span class="mark">?</span><p>??? <small>Not found yet. No spoilers: a step stays hidden until you reach it.</small></p></div>
           </div>
+          <p class="cap">Bosses</p>
+          <div class="rows"><div><span class="link">Edwin VanCleef</span><span>Killed twice</span></div><div><span class="link">Rhahk'Zor</span><span>Killed three times</span></div><div><span>Other foes</span><span>2 things seen</span></div></div>
+          <p class="cap">Runs</p>
+          <div class="rows"><div><span>Your first run</span><span>With Brakula, Garrett and Gestalt</span></div></div>
         </div>
       </div>
     </figure>
@@ -279,7 +305,7 @@ figure { margin: 0; }
         <div class="hop">
           <div class="hop-head"><span class="n">1</span><p>In Professions, Bolt of Linen Cloth takes two Linen Cloth. Click the Linen Cloth.</p></div>
           <figure class="win" aria-label="A tailoring recipe in the Professions tab">
-            <div class="tabs"><span>Timeline</span><span>Journey</span><span>Atlas</span><span>Bestiary</span><span class="on">Professions</span><span>Dungeons</span><span>Companions</span><span>Deeds</span></div>
+            <div class="tabs"><span>Timeline</span><span>Journey</span><span>Atlas</span><span>Bestiary</span><span class="on">Professions</span><span>Companions</span></div>
             <div class="win-body">
               <div class="list">
                 <div class="ticks"><span class="tick">Skill up</span><span class="tick">Have materials</span><span class="tick">Unlearned</span></div>
@@ -308,7 +334,7 @@ figure { margin: 0; }
         <div class="hop">
           <div class="hop-head"><span class="n">2</span><p>The Bestiary opens on a search for every foe that has dropped it. You are in Westfall and foes there have dropped it, so the search keeps to Westfall. Each drop says how often you got it.</p></div>
           <figure class="win" aria-label="A foe's page in the Bestiary, found by a search for Linen Cloth">
-            <div class="tabs"><span>Timeline</span><span>Journey</span><span>Atlas</span><span class="on">Bestiary</span><span>Professions</span><span>Dungeons</span><span>Companions</span><span>Deeds</span></div>
+            <div class="tabs"><span>Timeline</span><span>Journey</span><span>Atlas</span><span class="on">Bestiary</span><span>Professions</span><span>Companions</span></div>
             <div class="win-body">
               <div class="list">
                 <p class="search">Linen Cloth Westfall</p>
@@ -342,7 +368,7 @@ figure { margin: 0; }
         <div class="hop">
           <div class="hop-head"><span class="n">3</span><p>Click Westfall under Fought In. The Atlas map lights up where you fought the Defias Trapper, and you can set a waypoint there.</p></div>
           <figure class="win" aria-label="Westfall in the Atlas, lit where the Defias Trapper was fought">
-            <div class="tabs"><span>Timeline</span><span>Journey</span><span class="on">Atlas</span><span>Bestiary</span><span>Professions</span><span>Dungeons</span><span>Companions</span><span>Deeds</span></div>
+            <div class="tabs"><span>Timeline</span><span>Journey</span><span class="on">Atlas</span><span>Bestiary</span><span>Professions</span><span>Companions</span></div>
             <div class="win-body">
               <div class="list">
                 <p class="head">Foes fought here</p>
@@ -383,8 +409,8 @@ figure { margin: 0; }
     <div class="web">
       <div class="pillar">
         <h3>Journey</h3>
-        <p>A chapter for every class quest chain and every dungeon, with hints from innkeepers and trainers. Each step you finish is its story, retold in your character's words.</p>
-        <div class="goes"><span>Places to the Atlas</span><span>Dungeons to their page</span></div>
+        <p>A chapter for every class quest chain, and a page for every dungeon: its quests, with hints from innkeepers and trainers; its bosses; and every run, with who came, how long it took and what dropped, from the bosses and from its other foes. Each step you finish is its story, retold in your character's words.</p>
+        <div class="goes"><span>Places to the Atlas</span><span>Bosses to the Bestiary</span><span>Runs to Companions</span></div>
       </div>
       <div class="pillar">
         <h3>Atlas</h3>
@@ -393,13 +419,8 @@ figure { margin: 0; }
       </div>
       <div class="pillar">
         <h3>Bestiary</h3>
-        <p>Every foe you have killed: what your race and class make of it, what it dropped, and where you met it. Click a drop to see which other foes have dropped it.</p>
+        <p>Every foe you have killed, grouped by what it is: Defias, gnolls, murlocs, wolves. What your race and class make of it, field notes written from what you have seen of it, what it dropped and where you met it. Every dungeon boss has its own description. Click a drop to see which other foes have dropped it.</p>
         <div class="goes"><span>Where you fought it, in the Atlas</span><span>Drops to a search</span></div>
-      </div>
-      <div class="pillar">
-        <h3>Dungeons</h3>
-        <p>Every run and clear: who came, how long it took, which bosses fell and what they can drop. A run that fell apart is remembered too.</p>
-        <div class="goes"><span>Companions</span><span>Its quests in the Journey</span></div>
       </div>
       <div class="pillar">
         <h3>Professions</h3>
@@ -408,8 +429,8 @@ figure { margin: 0; }
       </div>
       <div class="pillar">
         <h3>Companions</h3>
-        <p>The people you have played with, most often first: the parties, dungeon runs, quests handed in and notable foes you brought down together.</p>
-        <div class="goes"><span>Runs to Dungeons</span><span>Foes to the Bestiary</span></div>
+        <p>The people you have played with, most often first: the parties, dungeon runs, quests handed in and notable foes you brought down together, and how your fellowship has grown, from Companion to Sworn.</p>
+        <div class="goes"><span>Runs to the Journey</span><span>Foes to the Bestiary</span></div>
       </div>
     </div>
     <div class="group">
@@ -417,13 +438,14 @@ figure { margin: 0; }
       <ul class="apart">
         <li><b>Search by what drops.</b> Type a thing's name in the Atlas and it lists the foes that dropped it, zone by zone. In Professions, the same search lists every recipe that takes it.</li>
         <li><b>Who was there.</b> Search Companions for a dungeon, a zone or a foe to see who was with you.</li>
-        <li><b>What killed you.</b> A death names the foe and leads to its Bestiary page. Swear vengeance on it, and the Bestiary keeps count of how many you have killed since.</li>
-        <li><b>Dungeon bosses.</b> Each boss you killed has a Bestiary page with what it dropped for you, and a dungeon's quests lead to its chapter in the Journey.</li>
-        <li><b>Trades.</b> What changed hands, any money, and with whom. A companion's name leads to their page.</li>
-        <li><b>New recipes.</b> A recipe learned at a trainer leads from its Timeline entry straight to the recipe in Professions.</li>
+        <li><b>What killed you.</b> A death names the foe. Swear vengeance on it right from the notice, and the Bestiary keeps count of how many you have killed since.</li>
+        <li><b>Dungeon loot.</b> Each boss you killed has a Bestiary page with what it dropped for you. Blue or better from a dungeon's other foes is kept too, under "Other foes".</li>
+        <li><b>All your characters.</b> Tick "Show all character data" and your other characters' foes, maps and recipes show beside this one's, faded, so you can see what any of them has done.</li>
+        <li><b>Trades and merchants.</b> What changed hands, any money, and with whom; what you sold, bought and paid for repairs.</li>
+        <li><b>New recipes.</b> A recipe learned at a trainer leads from its notice and its Timeline entry straight to the recipe in Professions.</li>
       </ul>
     </div>
-    <p class="aside">The Timeline and Deeds are linked the same way, and every tab has a search box. The screens on this page are drawn from the addon's own layout and words; in the game they wear its parchment art and the game's own icons.</p>
+    <p class="aside">The Timeline is linked the same way, and every tab has a search box. The screens on this page are drawn from the addon's own layout and words; in the game they wear its parchment art and the game's own icons.</p>
   </section>
 
   <section>
@@ -431,6 +453,8 @@ figure { margin: 0; }
     <ul class="apart">
       <li><b>Your race writes it.</b> A dwarf sounds like a dwarf and a troll like a troll, for every race and class, Skyborne included.</li>
       <li><b>It never changes how you play.</b> No quest arrows, no rotation helpers, no nagging. It writes down what you did.</li>
+      <li><b>It stays out of the way.</b> Notices are one slim line each, where you put them, and wait until a fight is over. You choose which kinds you see, down to a sale at a merchant.</li>
+      <li><b>A new level is an occasion.</b> A seal with your class crest steps up to your new level with the game's own sound, then your attributes count up and your trainer's new skills are listed.</li>
       <li><b>No spoilers.</b> It only knows what your character has seen or been told.</li>
       <li><b>Easy on your game.</b> Old days fold into months, so your records stay small and quick.</li>
     </ul>
@@ -447,6 +471,11 @@ figure { margin: 0; }
       <figure><figcaption class="label">A dwarf on kobolds</figcaption><blockquote>Kobolds and their tunnels. There is no greater insult to honest digging.</blockquote></figure>
       <figure><figcaption class="label">A human on kobolds</figcaption><blockquote>Kobolds. Small, sneaky and greedy, and they will fight hard over a candle.</blockquote></figure>
     </div>
+  </section>
+
+  <section>
+    <h2>What's new</h2>
+    <p class="news">Chronicle is at version 1.4.141. <a href="https://benjaminkimbrel.github.io/chronicle-addon/patch-notes.html">Read the patch notes</a> for what changed in each version.</p>
   </section>
 </div>
 </body>
