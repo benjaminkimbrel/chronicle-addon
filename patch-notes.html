@@ -214,14 +214,18 @@ details.version .body { display: grid; gap: 1rem; padding-top: 1rem; }
     <p class="lede">What changed in each version, newest first.</p>
   </header>
 
-  <article class="version" id="v1-4-146">
+  <article class="version" id="v1-4-148">
     <p class="when">Newest · November 8, 2026</p>
-    <h2><a href="#v1-4-146">1.4.146</a></h2>
-    <p>Everything since 1.4.143.</p><h3>Report a bug, suggest something</h3><ul><li><b><code>/chronicle bug</code></b> opens a box with a few details already selected: your Chronicle version, your race, class and level, where you are, and any errors Chronicle has kept. Press Ctrl+C to copy them. Then open the bug form in your browser, say what happened, and paste them in. The form’s link is in the box too.</li><li><b><code>/chronicle suggest</code></b> shows the link to the suggestions form.</li><li>Neither form asks you to sign in or for your email.</li></ul><h3>Fixes</h3><ul><li><b>A friendly NPC isn’t a foe:</b> an escort who died beside you (Volcor in Darkshore) was written in the Bestiary. Now nothing friendly is, and one already there leaves the Bestiary the next time you target it.</li><li><b>The right picture on a pill:</b> a pill could show the last pill’s picture (a party member out of sight showed a bag). It shows their class icon now.</li><li><b>Journey pills open at their quest:</b> “View in Journey” on a pill selects the quest in the list, so the page beside it isn’t empty.</li></ul>
+    <h2><a href="#v1-4-148">1.4.148</a></h2>
+    <p>Everything since 1.4.146.</p><h3>Fixes</h3><ul><li><b>Bestiary groups close with a foe selected:</b> clicking a group to close it while one of its foes was selected opened it again at once. Now it closes, and the foe is deselected.</li><li><b>Crafting no longer pushes the game’s windows aside:</b> after crafting from the Professions tab, the character window (and others) opened toward the middle of the screen. They open in their usual place now.</li></ul><p>Both came in through the bug form. Thank you! To report another, type <code>/chronicle bug</code> in game.</p>
   </article>
 
   <section class="older">
     <p class="older-label">Earlier versions</p>
+    <details class="version" id="v1-4-146">
+      <summary><h2>1.4.146</h2><span class="when">November 8, 2026</span></summary>
+      <div class="body"><p>Everything since 1.4.143.</p><h3>Report a bug, suggest something</h3><ul><li><b><code>/chronicle bug</code></b> opens a box with a few details already selected: your Chronicle version, your race, class and level, where you are, and any errors Chronicle has kept. Press Ctrl+C to copy them. Then open the bug form in your browser, say what happened, and paste them in. The form’s link is in the box too.</li><li><b><code>/chronicle suggest</code></b> shows the link to the suggestions form.</li><li>Neither form asks you to sign in or for your email.</li></ul><h3>Fixes</h3><ul><li><b>A friendly NPC isn’t a foe:</b> an escort who died beside you (Volcor in Darkshore) was written in the Bestiary. Now nothing friendly is, and one already there leaves the Bestiary the next time you target it.</li><li><b>The right picture on a pill:</b> a pill could show the last pill’s picture (a party member out of sight showed a bag). It shows their class icon now.</li><li><b>Journey pills open at their quest:</b> “View in Journey” on a pill selects the quest in the list, so the page beside it isn’t empty.</li></ul></div>
+    </details>
     <details class="version" id="v1-4-143">
       <summary><h2>1.4.143</h2><span class="when">November 8, 2026</span></summary>
       <div class="body"><p>Everything since 1.4.141.</p><h3>Pills</h3><ul><li><b>Pills stack by default now:</b> one at a time, with the next ones peeking out behind. Everyone is switched to this once. To see them all at once, untick “Stack the pills” under Settings → Notifications.</li><li><b>Starting a class quest chain shows one pill</b> (“… begins a new chapter of your Journey.”), not a second “You took on …” beside it.</li><li><b>A pill whose entry has left the Timeline</b> (a quest taken and dropped right away) just goes away when you click it.</li></ul></div>
