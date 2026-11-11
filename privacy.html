@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Chronicle Privacy</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="favicon.png">
+<meta name="description" content="What Chronicle, its updater and its release tool do with your information.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=Alegreya:ital,wght@0,400;0,500;1,400&display=swap">
+<style>
+/* (2026-11-11) The privacy page Google asks of the release tool's sign-in (his "Use Chronicle's site"): the site's two grounds,
+   its parchment and its Dark theme, one reading column. */
+:root {
+  --ground: #cda575; --ink: #302b21; --ink-soft: #614529; --title: #302b21; --gold: #6a2e2a; --rule: #a37f52;
+  --display: "Cinzel", "Trajan Pro", Georgia, serif; --body: "Alegreya", Georgia, serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --ground: #0f0f10; --ink: #b3b3b3; --ink-soft: #9e9e9e; --title: #e6e6e6; --gold: #cbc895; --rule: #333336; color-scheme: dark; }
+}
+:root[data-theme="dark"] { --ground: #0f0f10; --ink: #b3b3b3; --ink-soft: #9e9e9e; --title: #e6e6e6; --gold: #cbc895; --rule: #333336; color-scheme: dark; }
+* { box-sizing: border-box; }
+html { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--body); font-size: 1.2rem; line-height: 1.6; }
+main { max-width: 40rem; margin: 0 auto; padding-block: 3rem 4rem; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2 { font-family: var(--display); font-weight: 500; color: var(--title); text-wrap: balance; margin: 0; }
+h1 { font-size: 2.2rem; }
+h2 { font-size: 1.3rem; margin-top: 2.2rem; padding-top: 1rem; border-top: 2px solid var(--rule); }
+p { margin: 0.7rem 0 0; }
+.lead { color: var(--ink-soft); margin-top: 0.6rem; }
+a { color: var(--gold); }
+.back { display: inline-block; margin-bottom: 1.6rem; font-size: 1rem; }
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="./">Chronicle</a>
+<h1>Privacy</h1>
+<p class="lead">Chronicle is a World of Warcraft: Forever addon made for a few friends. What it records stays on your own computer.</p>
+
+<h2>The addon</h2>
+<p>Everything Chronicle records stays in the game's own saved files on your computer. The only thing it says to anyone is its version number, to the copies of Chronicle your group or guild members run, so each can tell when a newer one is out.</p>
+
+<h2>Chronicle Updater</h2>
+<p>The updater downloads Chronicle's newest release from its author's Google Drive, and reads this site to learn which version is newest. It sends nothing about you or your computer anywhere.</p>
+
+<h2>The release tool</h2>
+<p>Chronicle's author signs in to their own Google Drive with a release tool, and uses it only to upload each new version of Chronicle there. It reaches no one else's account and collects nothing from anyone.</p>
+
+<h2>Bug reports and suggestions</h2>
+<p>If you fill in Chronicle's bug or suggestion form, the author sees what you choose to write there, and nothing else.</p>
+</main>
+</body>
+</html>
