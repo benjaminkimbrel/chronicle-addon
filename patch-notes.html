@@ -4,27 +4,31 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Chronicle Patch Notes</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="favicon.png">
 <meta name="description" content="What changed in each version of Chronicle, an addon for World of Warcraft: Forever.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Alegreya:ital,wght@0,400;0,500;1,400&family=Alegreya+Sans+SC:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=Marcellus&family=Alegreya:ital,wght@0,400;0,500;1,400&family=Alegreya+Sans+SC:wght@500&display=swap">
 <style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;padding:0}[hidden]{display:none!important}</style>
 <style>
 /* Layout: one reading column on the addon's own two grounds (its Dark theme and its parchment). The addon's screens are drawn into
    the page as small windows (its tab strip, a list on the left, the chosen thing's page on the right), so a reader who has never
-   seen it can see where each thing lives: an evening in the Timeline, a Journey chapter, then one reagent followed through three tabs. */
+   seen it can see where each thing lives: the Overview, a Journey chapter, then one reagent followed through three tabs. */
 :root {
-  --ground: #e6d4ad;
-  --plate: #d8c295;
-  --plate-2: #cdb588;
-  --ink: #2f281e;
-  --ink-soft: #64584a;
-  --gold: #8a5c12;
-  --rule: #b89f72;
-  --win: #efe3c6;
-  --frame: #7d6646;
-  --map: #dcc796;
-  --map-line: #a78c5e;
+  /* Chronicle's Brown theme: the window's parchment, DarkBrown, DimInk, the Brick accent */
+  --ground: #cda575;
+  --plate: #c59c6a;
+  --plate-2: #bb915e;
+  --ink: #302b21;
+  --ink-soft: #614529;
+  --title: #302b21;
+  --gold: #6a2e2a;
+  --rule: #a37f52;
+  --win: #d3ad7f;
+  --frame: #6b4f33;
+  --map: #c79f6e;
+  --map-line: #9b7a4e;
   --mark: #2f62a8;
   --tip-bg: #1b1916;
   --tip-ink: #ece4d3;
@@ -34,15 +38,16 @@
   --label: "Alegreya Sans SC", "Gill Sans", "Trebuchet MS", sans-serif;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --ground: #171513; --plate: #221f1b; --plate-2: #2b2722; --ink: #cbc5ba; --ink-soft: #92897c; --gold: #e3b84a; --rule: #3a342c;
-  --win: #1d1a17; --frame: #4d4337; --map: #2a251f; --map-line: #4f463a; --mark: #6f9fe6; color-scheme: dark;
+  --ground: #0f0f10; --plate: #1a1a1b; --plate-2: #232325; --ink: #b3b3b3; --ink-soft: #9e9e9e; --title: #e6e6e6; --gold: #cbc895; --rule: #333336;
+  --win: #151516; --frame: #4a4a4e; --map: #1e1e20; --map-line: #3a3a3e; --mark: #6f9fe6; color-scheme: dark;
 } }
-:root[data-theme="dark"] { --ground: #171513; --plate: #221f1b; --plate-2: #2b2722; --ink: #cbc5ba; --ink-soft: #92897c; --gold: #e3b84a; --rule: #3a342c;
-  --win: #1d1a17; --frame: #4d4337; --map: #2a251f; --map-line: #4f463a; --mark: #6f9fe6; color-scheme: dark; }
+:root[data-theme="dark"] { --ground: #0f0f10; --plate: #1a1a1b; --plate-2: #232325; --ink: #b3b3b3; --ink-soft: #9e9e9e; --title: #e6e6e6; --gold: #cbc895; --rule: #333336;
+  --win: #151516; --frame: #4a4a4e; --map: #1e1e20; --map-line: #3a3a3e; --mark: #6f9fe6; color-scheme: dark; }
 
 body { background: var(--ground); color: var(--ink); font: 400 1.075rem/1.6 var(--body); }
 .wrap { max-width: 46rem; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 3.5rem 4.5rem; display: grid; gap: 3.5rem; }
-h1, h2, h3, h4 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap: balance; }
+h1, h2, h3, h4 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap: balance; color: var(--title); }
+h1, h2 { font-family: "Cinzel", var(--display); font-weight: 500; }		/* (2026-11-10: the titles in a Trajan-like face) */
 h1 { font-size: clamp(2.8rem, 9vw, 4.2rem); line-height: 1; letter-spacing: 0.02em; }
 h2 { font-size: 1.6rem; line-height: 1.2; }
 h3 { font-size: 1.2rem; line-height: 1.25; }
@@ -103,7 +108,17 @@ section { display: grid; gap: 1.2rem; }
 .fig figcaption { color: var(--ink-soft); font-size: 0.92rem; font-style: italic; }
 figure { margin: 0; }
 
-/* the Timeline inside its window, and the card beside it */
+/* the Overview inside its window: Latest beside Up next (1.4.217) */
+.win-body.ov { grid-template-columns: minmax(0, 1fr) minmax(0, 14rem); }
+.page.next { border-left: 1px solid var(--rule); }
+.page.next .li { padding-left: 0.2rem; }
+.moments { display: grid; gap: 0.45rem; }
+.moments div { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; font-size: 0.92rem; }
+.moments b { font-weight: 500; display: block; }
+.moments small { display: block; color: var(--ink-soft); font-size: 0.8rem; line-height: 1.3; }
+.moments div > span:last-child { color: var(--ink-soft); font-size: 0.8rem; white-space: nowrap; }
+.pbar { display: block; position: relative; height: 0.3rem; margin-top: 0.3rem; border: 1px solid var(--frame); background: linear-gradient(90deg, var(--mark) var(--done), transparent var(--done)); }
+.pbar::after { content: ""; position: absolute; left: var(--at); top: -0.25rem; bottom: -0.25rem; width: 2px; background: var(--ink-soft); }
 .day { display: grid; gap: 0.9rem; }
 .figures { display: flex; flex-wrap: wrap; gap: 0.3rem 1.2rem; border-bottom: 1px solid var(--rule); padding-bottom: 0.55rem; }
 .figures span { font-family: var(--label); font-size: 0.72rem; letter-spacing: 0.1em; color: var(--ink-soft); }
@@ -179,6 +194,8 @@ figure { margin: 0; }
 @media (max-width: 36rem) {
   .card-wrap { grid-template-columns: 1fr; }
   .win-body { grid-template-columns: 1fr; }
+  .win-body.ov { grid-template-columns: 1fr; }
+  .page.next { border-left: 0; border-top: 1px solid var(--rule); }
   .list { border-right: 0; border-bottom: 1px solid var(--rule); }
   .step, .voice { grid-template-columns: 1fr; gap: 0.2rem; }
 }
