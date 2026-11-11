@@ -300,8 +300,9 @@ body { font-size: 1.2rem; }
 .stat b { display: block; font-family: "Cinzel", var(--display); font-weight: 500; font-size: clamp(2.2rem, 5vw, 3.2rem); line-height: 1.1; color: var(--gold); }
 .stat span { display: block; margin-top: 0.4rem; color: var(--ink-soft); font-size: 1.02rem; }
 .points { display: grid; gap: 0.9rem; margin-top: 1.4rem; }
-.point { display: flex; gap: 0.8rem; align-items: center; font-size: 1.08rem; }
-.point svg { width: 1.5rem; height: 1.5rem; color: var(--gold); flex: none; }
+.point { display: flex; gap: 0.8rem; align-items: flex-start; font-size: 1.08rem; line-height: 1.5; }
+.point b { color: var(--title); font-weight: 600; }
+.point svg { width: 1.5rem; height: 1.5rem; color: var(--gold); flex: none; margin-top: 0.1rem; }
 .chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
 .chip { font-family: var(--label); font-size: 0.86rem; letter-spacing: 0.05em; color: var(--ink); border: 1px solid var(--rule); background: var(--plate); padding: 0.22rem 0.7rem; }
 .band .chip { background: var(--ground); }
@@ -358,7 +359,7 @@ body { font-size: 1.2rem; }
       <p class="lede">Your character's story, written as you play.</p>
       <p class="thesis">It learns the world as you go: who has work for you, where a foe lives, what it drops, who was with you. It only knows what your character has seen.</p>
       <div class="cta"><a class="button primary" href="#tour">Take the tour</a><a class="button" href="https://benjaminkimbrel.github.io/chronicle-addon/patch-notes.html">Patch notes</a></div>
-      <p class="meta">Version 1.4.217 · for friends</p>
+      <p class="meta">Version 1.4.217</p>
     </div>
     <figure class="win" aria-label="The Chronicle window on its Overview tab">
     <div class="tabs"><span class="on">Overview</span><span>Journey</span><span>Atlas</span><span>Bestiary</span><span>Professions</span><span>Companions</span></div>
@@ -411,12 +412,12 @@ body { font-size: 1.2rem; }
     <div>
       <div class="sec-head" style="margin-bottom: 0">
         <h2>As you play</h2>
-        <p class="intro">A slim notice for each moment, its ring filling as you go.</p>
+        <p class="intro">When something worth remembering happens, a slim notice slides in near the top of your screen. A quest step fills its ring as you make progress.</p>
       </div>
       <div class="points">
-        <div class="point"><svg aria-hidden="true"><use href="#i-cursor"/></svg><span>Point at one to read more</span></div>
-        <div class="point"><svg aria-hidden="true"><use href="#i-key"/></svg><span>Click it to go where it leads</span></div>
-        <div class="point"><svg aria-hidden="true"><use href="#i-leaf"/></svg><span>Choose which kinds you see</span></div>
+        <div class="point"><svg aria-hidden="true"><use href="#i-cursor"/></svg><span><b>Hover to read more.</b> Point at a notice for the whole story behind it.</span></div>
+        <div class="point"><svg aria-hidden="true"><use href="#i-key"/></svg><span><b>Click to go there.</b> A new foe opens in the Bestiary, a place in the Atlas, a quest on your map.</span></div>
+        <div class="point"><svg aria-hidden="true"><use href="#i-leaf"/></svg><span><b>Make it yours.</b> Drag the notices wherever suits your screen, and turn off any kind you would rather not see.</span></div>
       </div>
     </div>
     <div class="pills" aria-label="Notices on screen">
@@ -637,12 +638,12 @@ body { font-size: 1.2rem; }
       <h2>What sets it apart</h2>
     </div>
     <div class="cards">
-        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-mask"/></svg><h3>Your race writes it</h3><p>A dwarf sounds like a dwarf, a troll like a troll.</p></div>
-        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-key"/></svg><h3>It never changes how you play</h3><p>No arrows, no helpers, no nagging.</p></div>
-        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg><h3>It stays out of the way</h3><p>One slim line per notice, where you put it.</p></div>
-        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg><h3>A new level is an occasion</h3><p>Your crest, the game's own sound, your new skills.</p></div>
-        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-skull"/></svg><h3>No spoilers</h3><p>Only what your character has seen or been told.</p></div>
-        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-coin"/></svg><h3>Easy on your game</h3><p>It keeps what matters and lets the routine go.</p></div>
+        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-mask"/></svg><h3>Your race writes it</h3><p>Your adventures are told in your character's own voice, and your race colors how it is said: a dwarf sounds like a dwarf, a troll like a troll.</p></div>
+        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-key"/></svg><h3>It never changes how you play</h3><p>No quest arrows, no helpers, no reminders nagging you. It watches what you do and writes it down; the game stays the same game.</p></div>
+        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg><h3>It stays out of the way</h3><p>Each notice is one slim line that fades on its own. Drag them wherever you like, and choose which kinds you want to hear about.</p></div>
+        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg><h3>A new level is an occasion</h3><p>Reaching a new level gets a real celebration: your class crest, the game's own fanfare, and the new skills you can train.</p></div>
+        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-skull"/></svg><h3>No spoilers</h3><p>Chronicle shows only what your character has seen or been told. Hints grow as you learn more, and nothing ahead of you is given away.</p></div>
+        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-coin"/></svg><h3>Easy on your game</h3><p>It keeps the moments that matter and lets the everyday ones go, so its saved records stay small.</p></div>
     </div>
   </section>
 
