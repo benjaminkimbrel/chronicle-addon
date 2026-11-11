@@ -223,20 +223,14 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .sec-head h2 { font-size: clamp(1.6rem, 4vw, 2.1rem); }
 .live { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2.75rem; align-items: center; }
 .live .pills { gap: 0.55rem; }
-.ring.prog { border-color: transparent; background: radial-gradient(circle, var(--plate-2) 60%, transparent 62%), conic-gradient(var(--mark) var(--deg, 90deg), var(--frame) 0); }
+.ring.prog { position: relative; border-color: transparent; background: radial-gradient(circle, var(--plate-2) 60%, transparent 62%), conic-gradient(var(--mark) var(--deg, 90deg), var(--frame) 0); }
 .ring.prog.whole { --deg: 360deg; }
-@property --deg { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
-.live.await .pill { opacity: 0; transform: translateY(-8px); }
-.live.await.go .pill { animation: pill-in 0.5s ease-out forwards; }
-.live.await.go .pill:nth-child(2) { animation-delay: 0.7s; }
-.live.await.go .pill:nth-child(3) { animation-delay: 1.4s; }
-.live.await.go .pill:nth-child(4) { animation-delay: 2.1s; }
-.live.await .ring.prog { --deg: 0deg; }
-.live.await.go .ring.prog { animation: ring-fill 1.1s 0.5s ease-out forwards; }
-.live.await.go .ring.prog.whole { animation: ring-whole 1.3s 2.4s ease-out forwards; }
-@keyframes pill-in { to { opacity: 1; transform: none; } }
-@keyframes ring-fill { to { --deg: 90deg; } }
-@keyframes ring-whole { to { --deg: 360deg; } }
+.ring .face { display: grid; place-items: center; width: 100%; height: 100%; border-radius: 50%; overflow: hidden; position: relative; }
+.ring .face::after { content: ""; position: absolute; inset: -40%; background: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, 0.55) 50%, transparent 60%); transform: translateX(-120%); }
+.ring.sheen .face::after { transition: transform 0.7s ease-out; transform: translateX(120%); }
+.ring .spark { position: absolute; width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px; border-radius: 50%; background: #dbe8ff; opacity: 0; pointer-events: none; }
+.live.await .pill { opacity: 0; transform: translateY(-8px); transition: opacity 0.45s ease-out, transform 0.45s ease-out; }
+.live.await .pill.in { opacity: 1; transform: none; }
 .tour-tabs { display: flex; gap: 0.2rem; flex-wrap: wrap; border-bottom: 1px solid var(--rule); }
 .tour-tabs button { font-family: var(--label); font-size: 0.92rem; letter-spacing: 0.06em; background: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; color: var(--ink-soft); padding: 0.55rem 0.95rem; cursor: pointer; }
 .tour-tabs button[aria-selected="true"] { color: var(--title); border-bottom-color: var(--gold); }
@@ -296,10 +290,6 @@ body { font-size: 1.2rem; }
 @media (max-width: 36rem) { .cards { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) {
   .track { scroll-behavior: auto; }
-  .live.await .pill { opacity: 1; transform: none; }
-  .live.await.go .pill, .live.await.go .ring.prog, .live.await.go .ring.prog.whole { animation: none; }
-  .live.await .ring.prog { --deg: 90deg; }
-  .live.await .ring.prog.whole { --deg: 360deg; }
 }
 </style>
 </head>
@@ -381,10 +371,10 @@ body { font-size: 1.2rem; }
       <p class="intro">A one-line notice comes up as things happen, and a ring around its picture fills as a quest's steps get done. Point at one to read more; click it to go where it leads. A new place or a new foe gets a few words of its own beneath. Move them, size them, stack them, or turn off any kind you don't want.</p>
     </div>
     <div class="pills" aria-label="Notices on screen">
-      <span class="pill"><span class="ring prog"><svg aria-hidden="true"><use href="#i-skull"/></svg></span>2 of 8 Kobold Vermin slain for Investigate Echo Ridge.</span>
+      <span class="pill"><span class="ring prog"><span class="face"><svg aria-hidden="true"><use href="#i-skull"/></svg></span></span>2 of 8 Kobold Vermin slain for Investigate Echo Ridge.</span>
       <span class="pill"><span class="ring"><svg aria-hidden="true"><use href="#i-key"/></svg></span>You took on Book Collector in Elwynn Forest.</span>
       <span class="pill"><span class="ring"><svg aria-hidden="true"><use href="#i-paw"/></svg></span>Mangy Wolf was added to your Bestiary.</span>
-      <span class="pill"><span class="ring prog whole"><svg aria-hidden="true"><use href="#i-key"/></svg></span>You completed Book Collector in Elwynn Forest.</span>
+      <span class="pill"><span class="ring prog whole"><span class="face"><svg aria-hidden="true"><use href="#i-key"/></svg></span></span>You completed Book Collector in Elwynn Forest.</span>
     </div>
   </section>
 
@@ -696,14 +686,81 @@ body { font-size: 1.2rem; }
       if (said) said.textContent = b.getAttribute('data-say');
     });
   });
-  // the notices: drawn in, one by one, when the reader comes to them
+  // (his "these don't animate properly") the notices as the game plays them: in from above, the step's ring gliding from 1 of 8 to 2 of 8
+  // with sparks at its tip, the hand-in's ring sweeping whole, then sparks, the icon's swell (quick up, slow down) and a sheen; again
+  // every ten seconds while it is seen; the finished state where less motion is asked for
   var live = document.querySelector('.live');
-  if (live && 'IntersectionObserver' in window) {
-    live.classList.add('await');
-    var seen = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (e.isIntersecting) { live.classList.add('go'); seen.disconnect(); } });
-    }, { threshold: 0.4 });
-    seen.observe(live);
+  if (live) {
+    var pills = [].slice.call(live.querySelectorAll('.pill'));
+    var step = live.querySelector('.ring.prog:not(.whole)'), whole = live.querySelector('.ring.prog.whole');
+    var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var timers = [], frames = [], playing = false, seen = false, loop;
+    function later(ms, fn) { timers.push(setTimeout(fn, ms)); }
+    function stop() { timers.forEach(clearTimeout); timers = []; frames.forEach(clearTimeout); frames = []; }
+    function deg(ring, d) { ring.style.setProperty('--deg', d + 'deg'); }
+    function tween(ms, ease, fn, done) {
+      var start = performance.now();
+      function tick() {
+        var e = Math.min(1, (performance.now() - start) / ms);
+        fn(ease(e));
+        if (e < 1) frames.push(setTimeout(tick, 16)); else if (done) done();
+      }
+      tick();
+    }
+    function outQuart(e) { return 1 - Math.pow(1 - e, 4); }
+    function outCubic(e) { return 1 - Math.pow(1 - e, 3); }
+    function burst(ring, at) {
+      var r = ring.offsetWidth / 2, a = (at - 90) * Math.PI / 180;
+      for (var i = 0; i < 5; i++) {
+        var s = document.createElement('span');
+        s.className = 'spark';
+        s.style.left = (r + Math.cos(a) * (r - 2)) + 'px';
+        s.style.top = (r + Math.sin(a) * (r - 2)) + 'px';
+        ring.appendChild(s);
+        var dir = a + (i - 2) * 0.55, far = 7 + Math.random() * 5;
+        s.animate([{ opacity: 1, transform: 'translate(0, 0) scale(1)' }, { opacity: 0, transform: 'translate(' + (Math.cos(dir) * far) + 'px, ' + (Math.sin(dir) * far) + 'px) scale(0.4)' }], { duration: 520, easing: 'ease-out' }).onfinish = (function (el) { return function () { el.remove(); }; })(s);
+      }
+    }
+    function swell(ring) {
+      var face = ring.querySelector('.face svg');
+      if (face) face.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.32)', offset: 0.22 }, { transform: 'scale(1)' }], { duration: 900, easing: 'ease-out' });
+      ring.classList.remove('sheen'); void ring.offsetWidth; ring.classList.add('sheen');
+    }
+    function finished() { pills.forEach(function (p) { p.classList.add('in'); }); if (step) deg(step, 90); if (whole) deg(whole, 360); }
+    function play() {
+      stop(); playing = true;
+      pills.forEach(function (p) { p.classList.remove('in'); });
+      if (step) deg(step, 45); if (whole) { deg(whole, 0); whole.classList.remove('sheen'); }
+      later(150, function () { pills[0] && pills[0].classList.add('in'); });
+      later(650, function () {
+        if (!step) return;
+        var burstDone = false;
+        tween(900, outQuart, function (e) { deg(step, 45 + 45 * e); if (e > 0.97 && !burstDone) { burstDone = true; burst(step, 90); } });
+      });
+      later(1500, function () { pills[1] && pills[1].classList.add('in'); });
+      later(2200, function () { pills[2] && pills[2].classList.add('in'); });
+      later(2900, function () { pills[3] && pills[3].classList.add('in'); });
+      later(3400, function () {
+        if (!whole) return;
+        var burstDone = false;
+        tween(900, outCubic, function (e) { deg(whole, 360 * e); if (e > 0.97 && !burstDone) { burstDone = true; burst(whole, 0); swell(whole); } });
+      });
+      later(10000, function () { if (seen) play(); else playing = false; });
+    }
+    if (still) {
+      finished();
+    } else {
+      live.classList.add('await');
+      if (step) deg(step, 45); if (whole) deg(whole, 0);
+      var inView = function () { var r = live.getBoundingClientRect(); return r.top < innerHeight * 0.75 && r.bottom > innerHeight * 0.25; };
+      var check = function () { var now = inView(); if (now && !seen) { seen = true; if (!playing) play(); } else if (!now) { seen = false; } };
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function () { check(); }, { threshold: [0, 0.25, 0.5] }).observe(live);
+      }
+      addEventListener('scroll', check, { passive: true });
+      addEventListener('resize', check);
+      check();
+    }
   }
 })();
 </script>
