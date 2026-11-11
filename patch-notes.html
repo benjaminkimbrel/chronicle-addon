@@ -223,8 +223,10 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .sec-head h2 { font-size: clamp(1.6rem, 4vw, 2.1rem); }
 .live { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2.75rem; align-items: center; }
 .live .pills { gap: 0.55rem; }
-.ring.prog { position: relative; border-color: transparent; background: radial-gradient(circle, var(--plate-2) 60%, transparent 62%), conic-gradient(var(--mark) var(--deg, 90deg), var(--frame) 0); }
-.ring.prog.whole { --deg: 360deg; }
+/* (2026-11-10, his "nothing like a circle filling in", in Firefox) the ring a real circle: a blue stroke over the ring's edge, filling clockwise from the top */
+.ring.prog { position: relative; }
+.pill .ring svg.arc { position: absolute; left: -2px; top: -2px; width: calc(100% + 4px); height: calc(100% + 4px); transform: rotate(-90deg); pointer-events: none; overflow: visible; }
+.pill .ring svg.arc circle { fill: none; stroke: var(--mark); stroke-width: 3; }
 .ring .face { display: grid; place-items: center; width: 100%; height: 100%; border-radius: 50%; overflow: hidden; position: relative; }
 .ring .face::after { content: ""; position: absolute; inset: -40%; background: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, 0.55) 50%, transparent 60%); transform: translateX(-120%); }
 .ring.sheen .face::after { transition: transform 0.7s ease-out; transform: translateX(120%); }
