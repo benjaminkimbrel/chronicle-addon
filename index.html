@@ -12,7 +12,7 @@
 <style>
 /* Layout: one reading column on the addon's own two grounds (its Dark theme and its parchment). The addon's screens are drawn into
    the page as small windows (its tab strip, a list on the left, the chosen thing's page on the right), so a reader who has never
-   seen it can see where each thing lives: an evening in the Timeline, a Journey chapter, then one reagent followed through three tabs. */
+   seen it can see where each thing lives: the Overview, a Journey chapter, then one reagent followed through three tabs. */
 :root {
   --ground: #e6d4ad;
   --plate: #d8c295;
@@ -103,7 +103,17 @@ section { display: grid; gap: 1.2rem; }
 .fig figcaption { color: var(--ink-soft); font-size: 0.92rem; font-style: italic; }
 figure { margin: 0; }
 
-/* the Timeline inside its window, and the card beside it */
+/* the Overview inside its window: Latest beside Up next (1.4.217) */
+.win-body.ov { grid-template-columns: minmax(0, 1fr) minmax(0, 14rem); }
+.page.next { border-left: 1px solid var(--rule); }
+.page.next .li { padding-left: 0.2rem; }
+.moments { display: grid; gap: 0.45rem; }
+.moments div { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; font-size: 0.92rem; }
+.moments b { font-weight: 500; display: block; }
+.moments small { display: block; color: var(--ink-soft); font-size: 0.8rem; line-height: 1.3; }
+.moments div > span:last-child { color: var(--ink-soft); font-size: 0.8rem; white-space: nowrap; }
+.pbar { display: block; position: relative; height: 0.3rem; margin-top: 0.3rem; border: 1px solid var(--frame); background: linear-gradient(90deg, var(--mark) var(--done), transparent var(--done)); }
+.pbar::after { content: ""; position: absolute; left: var(--at); top: -0.25rem; bottom: -0.25rem; width: 2px; background: var(--ink-soft); }
 .day { display: grid; gap: 0.9rem; }
 .figures { display: flex; flex-wrap: wrap; gap: 0.3rem 1.2rem; border-bottom: 1px solid var(--rule); padding-bottom: 0.55rem; }
 .figures span { font-family: var(--label); font-size: 0.72rem; letter-spacing: 0.1em; color: var(--ink-soft); }
@@ -179,6 +189,8 @@ figure { margin: 0; }
 @media (max-width: 36rem) {
   .card-wrap { grid-template-columns: 1fr; }
   .win-body { grid-template-columns: 1fr; }
+  .win-body.ov { grid-template-columns: 1fr; }
+  .page.next { border-left: 0; border-top: 1px solid var(--rule); }
   .list { border-right: 0; border-bottom: 1px solid var(--rule); }
   .step, .voice { grid-template-columns: 1fr; gap: 0.2rem; }
 }
@@ -210,47 +222,55 @@ figure { margin: 0; }
   </header>
 
   <section>
-    <h2>An evening in the Timeline</h2>
-    <p class="intro">Chronicle is one window with a tab for each part of your records. The Timeline is the first: each day you play, told in your character's words.</p>
+    <h2>Your day, at a glance</h2>
+    <p class="intro">Chronicle is one window with a tab for each part of your records. The Overview is the first: what you did today, the day's biggest moment in your character's own words, and what is waiting for you next.</p>
     <div class="stage">
-      <figure class="win" aria-label="The Chronicle window on its Timeline tab">
-        <div class="tabs"><span class="on">Timeline</span><span>Journey</span><span>Atlas</span><span>Bestiary</span><span>Professions</span><span>Companions</span></div>
-        <div class="win-body">
-          <div class="list">
-            <div class="li"><span>All</span></div>
-            <div class="li on"><span>Monday, October 12</span></div>
-            <div class="li"><span>Sunday, October 11</span></div>
-            <div class="li"><span>Saturday, October 10</span></div>
-            <div class="li"><span>Thursday, October 8</span></div>
-          </div>
+      <figure class="win" aria-label="The Chronicle window on its Overview tab">
+        <div class="tabs"><span class="on">Overview</span><span>Journey</span><span>Atlas</span><span>Bestiary</span><span>Professions</span><span>Companions</span></div>
+        <div class="win-body ov">
           <div class="page day">
-            <div class="figures"><span>Levels<b>1</b></span><span>Foes<b>64</b></span><span>Quests<b>7</b></span><span>Purse<b>+2g 14s</b></span></div>
+            <p class="cap">LATEST</p>
+            <div class="figures"><span>Levels gained<b>1</b></span><span>Foes killed<b>64</b></span><span>Quests done<b>7</b></span><span>Richer by<b>2g 14s</b></span></div>
+            <p class="cap">TODAY'S HIGHLIGHT</p>
             <div class="entry">
-              <p class="kind">Journey</p>
-              <h3>A rumor regarding the Deadmines</h3>
-              <p>Innkeeper Farley told me that Gryan Stoutmantle, in <span class="link">Sentinel Hill</span>, may have a task that leads to <span class="link">the Deadmines</span>.</p>
-            </div>
-            <div class="entry">
-              <p class="kind">Quests</p>
-              <h3>The Defias Brotherhood</h3>
-              <p>Gryan Stoutmantle told me that the Defias had driven the good people of <span class="link">Westfall</span> from their land, and he wanted someone among them to learn who led the gang and where it was hiding. He sent me to a rogue named Wiley, who owed him a favor, at the inn in <span class="link">Lakeshire</span>, east of Elwynn in the <span class="link">Redridge Mountains</span>. I found Wiley there. Wiley admitted that he owed Gryan, and heard me out.</p>
-            </div>
-            <div class="entry">
-              <p class="kind">Dungeons</p>
               <h3>The Deadmines</h3>
+              <p class="kind">Cleared in 30 minutes</p>
               <p>We cleared <span class="link">the Deadmines</span> for the first time this evening, and it took thirty minutes. <span class="link">Lyandra</span> and <span class="link">Torvald</span> went with me, and I did not die.</p>
             </div>
+            <p class="cap">EARLIER</p>
+            <div class="moments">
+              <div><span><b>Level 18</b><small>Ready to train: Ambush, Gouge and Poised</small></span><span>Today</span></div>
+              <div><span><b>Fellowship: Companion</b><small>Lyandra and Torvald</small></span><span>Today</span></div>
+              <div><span><b>Hogger</b><small>Elite, level 11</small></span><span>Oct 11</span></div>
+              <div><span><b>Stormwind City</b><small>A capital</small></span><span>Oct 10</span></div>
+            </div>
+          </div>
+          <div class="page next">
+            <p class="cap">UP NEXT</p>
+            <p class="cap">CLASS QUESTS</p>
+            <div class="li"><span>???</span><small>Someone in Stormwind City may have a task for you.</small></div>
+            <p class="cap">READY TO TRAIN</p>
+            <div class="slots">
+              <span class="slot"><svg aria-hidden="true"><use href="#i-mask"/></svg></span>
+              <span class="slot"><svg aria-hidden="true"><use href="#i-bolt"/></svg><b>2</b></span>
+              <span class="slot"><svg aria-hidden="true"><use href="#i-key"/></svg></span>
+            </div>
+            <p class="cap">DUNGEONS</p>
+            <div class="li"><span>The Deadmines</span><small>4 of 9 done</small></div>
+            <div class="li"><span>The Stockade</span><small>0 of 6 begun</small></div>
+            <p class="cap">PROFESSIONS</p>
+            <div class="li"><span>Skinning</span><small>Train Expert at skill 125 and level 20</small><span class="pbar" style="--done: 81%; --at: 83%"></span></div>
           </div>
         </div>
       </figure>
       <figure class="fig">
         <div class="pills" aria-label="Notices on screen">
+          <span class="pill"><span class="ring"><svg aria-hidden="true"><use href="#i-skull"/></svg></span>2 of 8 Kobold Vermin slain for Investigate Echo Ridge.</span>
+          <span class="pill"><span class="ring"><svg aria-hidden="true"><use href="#i-key"/></svg></span>You took on Book Collector in Elwynn Forest.</span>
           <span class="pill"><span class="ring"><svg aria-hidden="true"><use href="#i-paw"/></svg></span>Mangy Wolf was added to your Bestiary.</span>
           <span class="pill"><span class="ring"><svg aria-hidden="true"><use href="#i-leaf"/></svg></span>Peacebloom was added to Herbalism.</span>
-          <span class="pill"><span class="ring"><svg aria-hidden="true"><use href="#i-key"/></svg></span>The Deadmines holds tasks for you now.</span>
-          <span class="pill"><span class="ring"><svg aria-hidden="true"><use href="#i-skull"/></svg></span>Hogger very nearly killed you.</span>
         </div>
-        <figcaption class="aside">As things happen, a one-line notice comes up on your screen. Point at it to read more, click it to open its page. A new place gets a full card with what it is like. Move them, size them, stack them or turn them off; the Timeline keeps everything either way.</figcaption>
+        <figcaption class="aside">As things happen, a one-line notice comes up on your screen; a ring around its picture fills as a quest's steps get done. Point at it to read more, click it to go where it leads. A new place or a new foe gets a few words of its own beneath. Move them, size them, stack them or turn them off.</figcaption>
       </figure>
     </div>
     <p class="aside">Every highlighted name leads somewhere: a place to the Atlas, the Deadmines to its page in the Journey, a companion to everything you have done together.</p>
@@ -264,9 +284,9 @@ figure { margin: 0; }
       <div class="step"><p class="label">Once you've been to Westfall</p><p>Someone in Westfall may know of work in the Deadmines.</p></div>
       <div class="step last"><p class="label">After a word with an innkeeper</p><p>Gryan Stoutmantle, in Sentinel Hill, may know of work in the Deadmines.</p></div>
     </div>
-    <p class="intro">Innkeepers pass on rumors about the dungeons, and class trainers tell you who else can teach you. Each rumor is kept in the Timeline too. Then the dungeon's page in the Journey follows you through it: its quests, its bosses and every run you have made.</p>
+    <p class="intro">Innkeepers pass on rumors about the dungeons, and class trainers tell you who else can teach you. Then the dungeon's page in the Journey follows you through it: its quests, its bosses and every run you have made.</p>
     <figure class="win" aria-label="A dungeon's page in the Journey tab">
-      <div class="tabs"><span>Timeline</span><span class="on">Journey</span><span>Atlas</span><span>Bestiary</span><span>Professions</span><span>Companions</span></div>
+      <div class="tabs"><span>Overview</span><span class="on">Journey</span><span>Atlas</span><span>Bestiary</span><span>Professions</span><span>Companions</span></div>
       <div class="win-body">
         <div class="list">
           <div class="li"><span>Overview</span><small>What to do next, and what is done</small></div>
@@ -305,7 +325,7 @@ figure { margin: 0; }
         <div class="hop">
           <div class="hop-head"><span class="n">1</span><p>In Professions, Bolt of Linen Cloth takes two Linen Cloth. Click the Linen Cloth.</p></div>
           <figure class="win" aria-label="A tailoring recipe in the Professions tab">
-            <div class="tabs"><span>Timeline</span><span>Journey</span><span>Atlas</span><span>Bestiary</span><span class="on">Professions</span><span>Companions</span></div>
+            <div class="tabs"><span>Overview</span><span>Journey</span><span>Atlas</span><span>Bestiary</span><span class="on">Professions</span><span>Companions</span></div>
             <div class="win-body">
               <div class="list">
                 <div class="ticks"><span class="tick">Skill up</span><span class="tick">Have materials</span><span class="tick">Unlearned</span></div>
@@ -334,7 +354,7 @@ figure { margin: 0; }
         <div class="hop">
           <div class="hop-head"><span class="n">2</span><p>The Bestiary opens on a search for every foe that has dropped it. You are in Westfall and foes there have dropped it, so the search keeps to Westfall. Each drop says how often you got it.</p></div>
           <figure class="win" aria-label="A foe's page in the Bestiary, found by a search for Linen Cloth">
-            <div class="tabs"><span>Timeline</span><span>Journey</span><span>Atlas</span><span class="on">Bestiary</span><span>Professions</span><span>Companions</span></div>
+            <div class="tabs"><span>Overview</span><span>Journey</span><span>Atlas</span><span class="on">Bestiary</span><span>Professions</span><span>Companions</span></div>
             <div class="win-body">
               <div class="list">
                 <p class="search">Linen Cloth Westfall</p>
@@ -368,7 +388,7 @@ figure { margin: 0; }
         <div class="hop">
           <div class="hop-head"><span class="n">3</span><p>Click Westfall under Fought In. The Atlas map lights up where you fought the Defias Trapper, and you can set a waypoint there.</p></div>
           <figure class="win" aria-label="Westfall in the Atlas, lit where the Defias Trapper was fought">
-            <div class="tabs"><span>Timeline</span><span>Journey</span><span class="on">Atlas</span><span>Bestiary</span><span>Professions</span><span>Companions</span></div>
+            <div class="tabs"><span>Overview</span><span>Journey</span><span class="on">Atlas</span><span>Bestiary</span><span>Professions</span><span>Companions</span></div>
             <div class="win-body">
               <div class="list">
                 <p class="head">Foes fought here</p>
@@ -442,10 +462,10 @@ figure { margin: 0; }
         <li><b>Dungeon loot.</b> Each boss you killed has a Bestiary page with what it dropped for you. Blue or better from a dungeon's other foes is kept too, under "Other foes".</li>
         <li><b>All your characters.</b> Tick "Show all character data" and your other characters' foes, maps and recipes show beside this one's, faded, so you can see what any of them has done.</li>
         <li><b>Trades and merchants.</b> What changed hands, any money, and with whom; what you sold, bought and paid for repairs.</li>
-        <li><b>New recipes.</b> A recipe learned at a trainer leads from its notice and its Timeline entry straight to the recipe in Professions.</li>
+        <li><b>New recipes.</b> A recipe learned at a trainer leads from its notice straight to the recipe in Professions.</li>
       </ul>
     </div>
-    <p class="aside">The Timeline is linked the same way, and every tab has a search box. The screens on this page are drawn from the addon's own layout and words; in the game they wear its parchment art and the game's own icons.</p>
+    <p class="aside">The Overview is linked the same way, and every tab has a search box. The screens on this page are drawn from the addon's own layout and words; in the game they wear its parchment art and the game's own icons.</p>
   </section>
 
   <section>
