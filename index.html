@@ -293,6 +293,39 @@ body { font-size: 1.2rem; }
 @media (prefers-reduced-motion: reduce) {
   .track { scroll-behavior: auto; }
 }
+
+/* ---- (2026-11-10, his "less big walls of text") figures, points, tags and the drawing of the tabs ---- */
+.hero2 .thesis { max-width: 34rem; }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem; text-align: center; }
+.stat b { display: block; font-family: "Cinzel", var(--display); font-weight: 500; font-size: clamp(2.2rem, 5vw, 3.2rem); line-height: 1.1; color: var(--gold); }
+.stat span { display: block; margin-top: 0.4rem; color: var(--ink-soft); font-size: 1.02rem; }
+.points { display: grid; gap: 0.9rem; margin-top: 1.4rem; }
+.point { display: flex; gap: 0.8rem; align-items: center; font-size: 1.08rem; }
+.point svg { width: 1.5rem; height: 1.5rem; color: var(--gold); flex: none; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.chip { font-family: var(--label); font-size: 0.86rem; letter-spacing: 0.05em; color: var(--ink); border: 1px solid var(--rule); background: var(--plate); padding: 0.22rem 0.7rem; }
+.band .chip { background: var(--ground); }
+.slide .copy .lead { font-size: 1.18rem; color: var(--ink); }
+.feature p { font-size: 1.02rem; }
+.links { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 2.5rem; align-items: center; }
+.web-map { width: 100%; height: auto; display: block; }
+.web-map .edge { stroke: var(--rule); stroke-width: 1.5; fill: none; }
+.web-map .edge.hub { stroke-dasharray: 3 4; }
+.web-map .node rect { fill: var(--plate); stroke: var(--frame); stroke-width: 1.5; }
+.web-map .node.core rect { fill: var(--gold); stroke: var(--gold); }
+.web-map .node text { font-family: "Alegreya Sans SC", var(--label); font-size: 17px; letter-spacing: 0.06em; fill: var(--title); text-anchor: middle; dominant-baseline: central; }
+.web-map .node.core text { fill: var(--ground); }
+.web-map .say { font-family: var(--body); font-style: italic; font-size: 15px; fill: var(--ink-soft); text-anchor: middle; }
+.small-things { display: grid; gap: 0.9rem; }
+.small-things h3 { font-size: 1.2rem; }
+@media (max-width: 54rem) {
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .links { grid-template-columns: 1fr; }
+}
+@media (max-width: 34rem) {
+  .web-map .node text { font-size: 22px; }
+  .web-map .say { font-size: 20px; }
+}
 </style>
 </head>
 <body>
@@ -323,67 +356,81 @@ body { font-size: 1.2rem; }
       <p class="eyebrow">An addon for World of Warcraft: Forever</p>
       <h1>Chronicle</h1>
       <p class="lede">Your character's story, written as you play.</p>
-      <p class="thesis">Everything you would look up on a website, Chronicle learns as you go: who has work for you, where a foe lives, what it drops, who was with you in the Deadmines. You build your own book of the world, and it only knows what your character has seen.</p>
+      <p class="thesis">It learns the world as you go: who has work for you, where a foe lives, what it drops, who was with you. It only knows what your character has seen.</p>
       <div class="cta"><a class="button primary" href="#tour">Take the tour</a><a class="button" href="https://benjaminkimbrel.github.io/chronicle-addon/patch-notes.html">Patch notes</a></div>
       <p class="meta">Version 1.4.217 · for friends</p>
     </div>
     <figure class="win" aria-label="The Chronicle window on its Overview tab">
-            <div class="tabs"><span class="on">Overview</span><span>Journey</span><span>Atlas</span><span>Bestiary</span><span>Professions</span><span>Companions</span></div>
-            <div class="win-body ov">
-              <div class="page day">
-                <p class="cap">LATEST</p>
-                <div class="figures"><span>Levels gained<b>1</b></span><span>Foes killed<b>64</b></span><span>Quests done<b>7</b></span><span>Richer by<b>2g 14s</b></span></div>
-                <p class="cap">TODAY'S HIGHLIGHT</p>
-                <div class="entry">
-                  <h3>The Deadmines</h3>
-                  <p class="kind">Cleared in 30 minutes</p>
-                  <p>We cleared <span class="link">the Deadmines</span> for the first time this evening, and it took thirty minutes. <span class="link">Lyandra</span> and <span class="link">Torvald</span> went with me, and I did not die.</p>
-                </div>
-                <p class="cap">EARLIER</p>
-                <div class="moments">
-                  <div><span><b>Level 18</b><small>Ready to train: Ambush, Gouge and Poised</small></span><span>Today</span></div>
-                  <div><span><b>Fellowship: Companion</b><small>Lyandra and Torvald</small></span><span>Today</span></div>
-                  <div><span><b>Hogger</b><small>Elite, level 11</small></span><span>Oct 11</span></div>
-                  <div><span><b>Stormwind City</b><small>A capital</small></span><span>Oct 10</span></div>
-                </div>
-              </div>
-              <div class="page next">
-                <p class="cap">UP NEXT</p>
-                <p class="cap">CLASS QUESTS</p>
-                <div class="li"><span>???</span><small>Someone in Stormwind City may have a task for you.</small></div>
-                <p class="cap">READY TO TRAIN</p>
-                <div class="slots">
-                  <span class="slot"><svg aria-hidden="true"><use href="#i-mask"/></svg></span>
-                  <span class="slot"><svg aria-hidden="true"><use href="#i-bolt"/></svg><b>2</b></span>
-                  <span class="slot"><svg aria-hidden="true"><use href="#i-key"/></svg></span>
-                </div>
-                <p class="cap">DUNGEONS</p>
-                <div class="li"><span>The Deadmines</span><small>4 of 9 done</small></div>
-                <div class="li"><span>The Stockade</span><small>0 of 6 begun</small></div>
-                <p class="cap">PROFESSIONS</p>
-                <div class="li"><span>Skinning</span><small>Train Expert at skill 125 and level 20</small><span class="pbar" style="--done: 81%; --at: 83%"></span></div>
-              </div>
-            </div>
-          </figure>
+    <div class="tabs"><span class="on">Overview</span><span>Journey</span><span>Atlas</span><span>Bestiary</span><span>Professions</span><span>Companions</span></div>
+    <div class="win-body ov">
+    <div class="page day">
+    <p class="cap">LATEST</p>
+    <div class="figures"><span>Levels gained<b>1</b></span><span>Foes killed<b>64</b></span><span>Quests done<b>7</b></span><span>Richer by<b>2g 14s</b></span></div>
+    <p class="cap">TODAY'S HIGHLIGHT</p>
+    <div class="entry">
+    <h3>The Deadmines</h3>
+    <p class="kind">Cleared in 30 minutes</p>
+    <p>We cleared <span class="link">the Deadmines</span> for the first time this evening, and it took thirty minutes. <span class="link">Lyandra</span> and <span class="link">Torvald</span> went with me, and I did not die.</p>
+    </div>
+    <p class="cap">EARLIER</p>
+    <div class="moments">
+    <div><span><b>Level 18</b><small>Ready to train: Ambush, Gouge and Poised</small></span><span>Today</span></div>
+    <div><span><b>Fellowship: Companion</b><small>Lyandra and Torvald</small></span><span>Today</span></div>
+    <div><span><b>Hogger</b><small>Elite, level 11</small></span><span>Oct 11</span></div>
+    <div><span><b>Stormwind City</b><small>A capital</small></span><span>Oct 10</span></div>
+    </div>
+    </div>
+    <div class="page next">
+    <p class="cap">UP NEXT</p>
+    <p class="cap">CLASS QUESTS</p>
+    <div class="li"><span>???</span><small>Someone in Stormwind City may have a task for you.</small></div>
+    <p class="cap">READY TO TRAIN</p>
+    <div class="slots">
+    <span class="slot"><svg aria-hidden="true"><use href="#i-mask"/></svg></span>
+    <span class="slot"><svg aria-hidden="true"><use href="#i-bolt"/></svg><b>2</b></span>
+    <span class="slot"><svg aria-hidden="true"><use href="#i-key"/></svg></span>
+    </div>
+    <p class="cap">DUNGEONS</p>
+    <div class="li"><span>The Deadmines</span><small>4 of 9 done</small></div>
+    <div class="li"><span>The Stockade</span><small>0 of 6 begun</small></div>
+    <p class="cap">PROFESSIONS</p>
+    <div class="li"><span>Skinning</span><small>Train Expert at skill 125 and level 20</small><span class="pbar" style="--done: 81%; --at: 83%"></span></div>
+    </div>
+    </div>
+    </figure>
   </section>
 
-  <section class="live band" id="live">
-    <div class="sec-head">
-      <h2>As you play</h2>
-      <p class="intro">A one-line notice comes up as things happen, and a ring around its picture fills as a quest's steps get done. Point at one to read more; click it to go where it leads. A new place or a new foe gets a few words of its own beneath. Move them, size them, stack them, or turn off any kind you don't want.</p>
+  <section class="stats band" aria-label="Chronicle in figures">
+    <div class="stat"><b>6</b><span>tabs, each leading to the others</span></div>
+    <div class="stat"><b>9</b><span>races, each in its own voice</span></div>
+    <div class="stat"><b>7,000+</b><span>lines it can say</span></div>
+    <div class="stat"><b>0</b><span>spoilers</span></div>
+  </section>
+
+  <section class="live" id="live">
+    <div>
+      <div class="sec-head" style="margin-bottom: 0">
+        <h2>As you play</h2>
+        <p class="intro">A slim notice for each moment, its ring filling as you go.</p>
+      </div>
+      <div class="points">
+        <div class="point"><svg aria-hidden="true"><use href="#i-cursor"/></svg><span>Point at one to read more</span></div>
+        <div class="point"><svg aria-hidden="true"><use href="#i-key"/></svg><span>Click it to go where it leads</span></div>
+        <div class="point"><svg aria-hidden="true"><use href="#i-leaf"/></svg><span>Choose which kinds you see</span></div>
+      </div>
     </div>
     <div class="pills" aria-label="Notices on screen">
-      <span class="pill"><span class="ring prog"><svg class="arc" viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="16.5" pathLength="100" stroke-dasharray="100" stroke-dashoffset="75"/></svg><span class="face"><svg aria-hidden="true"><use href="#i-skull"/></svg></span></span>2 of 8 Kobold Vermin slain for Investigate Echo Ridge.</span>
-      <span class="pill"><span class="ring"><svg aria-hidden="true"><use href="#i-key"/></svg></span>You took on Book Collector in Elwynn Forest.</span>
-      <span class="pill"><span class="ring"><svg aria-hidden="true"><use href="#i-paw"/></svg></span>Mangy Wolf was added to your Bestiary.</span>
-      <span class="pill"><span class="ring prog whole"><svg class="arc" viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="16.5" pathLength="100" stroke-dasharray="100" stroke-dashoffset="0"/></svg><span class="face"><svg aria-hidden="true"><use href="#i-key"/></svg></span></span>You completed Book Collector in Elwynn Forest.</span>
-    </div>
+          <span class="pill"><span class="ring prog"><svg class="arc" viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="16.5" pathLength="100" stroke-dasharray="100" stroke-dashoffset="75"/></svg><span class="face"><svg aria-hidden="true"><use href="#i-skull"/></svg></span></span>2 of 8 Kobold Vermin slain for Investigate Echo Ridge.</span>
+          <span class="pill"><span class="ring"><svg aria-hidden="true"><use href="#i-key"/></svg></span>You took on Book Collector in Elwynn Forest.</span>
+          <span class="pill"><span class="ring"><svg aria-hidden="true"><use href="#i-paw"/></svg></span>Mangy Wolf was added to your Bestiary.</span>
+          <span class="pill"><span class="ring prog whole"><svg class="arc" viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="16.5" pathLength="100" stroke-dasharray="100" stroke-dashoffset="0"/></svg><span class="face"><svg aria-hidden="true"><use href="#i-key"/></svg></span></span>You completed Book Collector in Elwynn Forest.</span>
+        </div>
   </section>
 
-  <section id="tour">
+  <section id="tour" class="band">
     <div class="sec-head">
       <h2>Take the tour</h2>
-      <p class="intro">Chronicle is one window with a tab for each part of your records, and every highlighted name leads somewhere: a place to the Atlas, a dungeon to its page in the Journey, a companion to everything you've done together.</p>
+      <p class="intro">One window, a tab for each part of your records.</p>
     </div>
     <div class="tour-tabs" role="tablist" aria-label="Parts of Chronicle">
       <button role="tab" id="tab-journey" aria-controls="tour-journey" aria-selected="true">Journey</button>
@@ -396,180 +443,180 @@ body { font-size: 1.2rem; }
       <article class="slide" id="tour-journey" role="tabpanel" aria-label="Journey">
         <div class="copy">
           <h3>Hints that grow as you do</h3>
-          <p>When your character is ready for a dungeon or the next step of their class training, the Journey opens a chapter for it. Its hint starts vague and fills in as you explore and ask around.</p>
+          <p class="lead">A chapter for each dungeon and class quest chain.</p>
           <div class="mini-steps">
             <div><b>At first</b><span>Someone out in the world may know of work in the Deadmines.</span></div>
             <div><b>Once you've been to Westfall</b><span>Someone in Westfall may know of work in the Deadmines.</span></div>
             <div><b>After a word with an innkeeper</b><span>Gryan Stoutmantle, in Sentinel Hill, may know of work in the Deadmines.</span></div>
           </div>
-          <p>Then the dungeon's page follows you through it: its quests, its bosses and every run you've made. No spoilers: a step stays hidden until you reach it.</p>
+          <div class="chips"><span class="chip">Every run kept</span><span class="chip">Bosses and loot</span><span class="chip">No spoilers</span></div>
         </div>
         <figure class="win" aria-label="A dungeon's page in the Journey tab">
-              <div class="tabs"><span>Overview</span><span class="on">Journey</span><span>Atlas</span><span>Bestiary</span><span>Professions</span><span>Companions</span></div>
-              <div class="win-body">
-                <div class="list">
-                  <div class="li"><span>Overview</span><small>What to do next, and what is done</small></div>
-                  <p class="head">Class</p>
-                  <div class="li"><span>The Tome of Valor</span><small>2 of 4 completed</small></div>
-                  <p class="head">Dungeons</p>
-                  <div class="li on"><span>The Deadmines</span><small>2 of 5 completed</small></div>
-                  <div class="li"><span>Wailing Caverns</span><small>Its tasks open as you gain experience</small></div>
-                </div>
-                <div class="page">
-                  <h4>The Deadmines</h4>
-                  <p class="under">2 of 5 completed · entered three times, cleared twice</p>
-                  <p class="cap">Quests</p>
-                  <div class="chapter">
-                    <div class="row"><span class="mark">✓</span><p>The Defias Brotherhood <small>Done, and told in your own words</small></p></div>
-                    <div class="row"><span class="mark">…</span><p>Oh Brother. . . <small>In your quest log</small></p></div>
-                    <div class="row"><span class="mark">!</span><p>Underground Assault <small>You can take it now</small></p></div>
-                    <div class="row dim"><span class="mark">?</span><p>??? <small>Not found yet. No spoilers: a step stays hidden until you reach it.</small></p></div>
-                  </div>
-                  <p class="cap">Bosses</p>
-                  <div class="rows"><div><span class="link">Edwin VanCleef</span><span>Killed twice</span></div><div><span class="link">Rhahk'Zor</span><span>Killed three times</span></div><div><span>Other foes</span><span>2 things seen</span></div></div>
-                  <p class="cap">Runs</p>
-                  <div class="rows"><div><span>Your first run</span><span>With Brakula, Garrett and Gestalt</span></div></div>
-                </div>
-              </div>
-            </figure>
+        <div class="tabs"><span>Overview</span><span class="on">Journey</span><span>Atlas</span><span>Bestiary</span><span>Professions</span><span>Companions</span></div>
+        <div class="win-body">
+        <div class="list">
+        <div class="li"><span>Overview</span><small>What to do next, and what is done</small></div>
+        <p class="head">Class</p>
+        <div class="li"><span>The Tome of Valor</span><small>2 of 4 completed</small></div>
+        <p class="head">Dungeons</p>
+        <div class="li on"><span>The Deadmines</span><small>2 of 5 completed</small></div>
+        <div class="li"><span>Wailing Caverns</span><small>Its tasks open as you gain experience</small></div>
+        </div>
+        <div class="page">
+        <h4>The Deadmines</h4>
+        <p class="under">2 of 5 completed · entered three times, cleared twice</p>
+        <p class="cap">Quests</p>
+        <div class="chapter">
+        <div class="row"><span class="mark">✓</span><p>The Defias Brotherhood <small>Done, and told in your own words</small></p></div>
+        <div class="row"><span class="mark">…</span><p>Oh Brother. . . <small>In your quest log</small></p></div>
+        <div class="row"><span class="mark">!</span><p>Underground Assault <small>You can take it now</small></p></div>
+        <div class="row dim"><span class="mark">?</span><p>??? <small>Not found yet. No spoilers: a step stays hidden until you reach it.</small></p></div>
+        </div>
+        <p class="cap">Bosses</p>
+        <div class="rows"><div><span class="link">Edwin VanCleef</span><span>Killed twice</span></div><div><span class="link">Rhahk'Zor</span><span>Killed three times</span></div><div><span>Other foes</span><span>2 things seen</span></div></div>
+        <p class="cap">Runs</p>
+        <div class="rows"><div><span>Your first run</span><span>With Brakula, Garrett and Gestalt</span></div></div>
+        </div>
+        </div>
+        </figure>
       </article>
       <article class="slide" id="tour-professions" role="tabpanel" aria-label="Professions">
         <div class="copy">
           <p class="step-no">FOLLOW ONE REAGENT · 1 OF 3</p>
-          <h3>Every recipe, and where its makings come from</h3>
-          <p>Every recipe of your professions, learned or not, and a log of everything you've gathered. Tick Have materials to see only what your bags can make right now, and craft it from the recipe's own page.</p>
-          <p>Bolt of Linen Cloth takes two Linen Cloth. Click the Linen Cloth&hellip;</p>
+          <h3>Every recipe, learned or not</h3>
+          <p class="lead">Click a reagent to find where it comes from.</p>
+          <div class="chips"><span class="chip">Have materials</span><span class="chip">Craft from the page</span><span class="chip">Gathering log</span></div>
         </div>
         <figure class="win" aria-label="A tailoring recipe in the Professions tab">
-                    <div class="tabs"><span>Overview</span><span>Journey</span><span>Atlas</span><span>Bestiary</span><span class="on">Professions</span><span>Companions</span></div>
-                    <div class="win-body">
-                      <div class="list">
-                        <div class="ticks"><span class="tick">Skill up</span><span class="tick">Have materials</span><span class="tick">Unlearned</span></div>
-                        <p class="head">Tailoring · Materials</p>
-                        <div class="li on"><span>Bolt of Linen Cloth</span><small>Made 14 times</small></div>
-                        <p class="head">Tailoring · Armor</p>
-                        <div class="li"><span>Brown Linen Vest</span><small>Made twice</small></div>
-                        <div class="li"><span>Heavy Linen Gloves</span><small>Not made yet</small></div>
-                        <div class="li"><span>Linen Belt</span><small>Made once</small></div>
-                      </div>
-                      <div class="page">
-                        <h4>Bolt of Linen Cloth</h4>
-                        <p class="under">Learned</p>
-                        <p class="cap">Reagents</p>
-                        <div>
-                          <div class="slots"><span class="slot hot"><svg aria-hidden="true"><use href="#i-cloth"/></svg><b>2</b><svg class="cursor" aria-hidden="true"><use href="#i-cursor"/></svg></span></div>
-                          <div class="tip"><strong>Linen Cloth</strong><span class="g">Click to search in Bestiary</span></div>
-                        </div>
-                        <div class="btns"><span class="btn">Craft</span><span class="count">1</span><span class="btn">Craft all</span></div>
-                        <span class="tick">Track this recipe</span>
-                      </div>
-                    </div>
-                  </figure>
+        <div class="tabs"><span>Overview</span><span>Journey</span><span>Atlas</span><span>Bestiary</span><span class="on">Professions</span><span>Companions</span></div>
+        <div class="win-body">
+        <div class="list">
+        <div class="ticks"><span class="tick">Skill up</span><span class="tick">Have materials</span><span class="tick">Unlearned</span></div>
+        <p class="head">Tailoring · Materials</p>
+        <div class="li on"><span>Bolt of Linen Cloth</span><small>Made 14 times</small></div>
+        <p class="head">Tailoring · Armor</p>
+        <div class="li"><span>Brown Linen Vest</span><small>Made twice</small></div>
+        <div class="li"><span>Heavy Linen Gloves</span><small>Not made yet</small></div>
+        <div class="li"><span>Linen Belt</span><small>Made once</small></div>
+        </div>
+        <div class="page">
+        <h4>Bolt of Linen Cloth</h4>
+        <p class="under">Learned</p>
+        <p class="cap">Reagents</p>
+        <div>
+        <div class="slots"><span class="slot hot"><svg aria-hidden="true"><use href="#i-cloth"/></svg><b>2</b><svg class="cursor" aria-hidden="true"><use href="#i-cursor"/></svg></span></div>
+        <div class="tip"><strong>Linen Cloth</strong><span class="g">Click to search in Bestiary</span></div>
+        </div>
+        <div class="btns"><span class="btn">Craft</span><span class="count">1</span><span class="btn">Craft all</span></div>
+        <span class="tick">Track this recipe</span>
+        </div>
+        </div>
+        </figure>
       </article>
       <article class="slide" id="tour-bestiary" role="tabpanel" aria-label="Bestiary">
         <div class="copy">
           <p class="step-no">FOLLOW ONE REAGENT · 2 OF 3</p>
-          <h3>Every foe, in your character's words</h3>
-          <p>&hellip;and the Bestiary opens on every foe that has dropped it. You're in Westfall, so the search keeps to Westfall's foes first.</p>
-          <p>Each foe has what your race and class make of it, field notes from what you've seen of it, what it dropped and how often, and where you fought it.</p>
+          <h3>Every foe, in your own words</h3>
+          <p class="lead">Every foe that dropped it, nearest first.</p>
+          <div class="chips"><span class="chip">Field notes</span><span class="chip">Drops and odds</span><span class="chip">Swear vengeance</span></div>
         </div>
         <figure class="win" aria-label="A foe's page in the Bestiary, found by a search for Linen Cloth">
-                    <div class="tabs"><span>Overview</span><span>Journey</span><span>Atlas</span><span class="on">Bestiary</span><span>Professions</span><span>Companions</span></div>
-                    <div class="win-body">
-                      <div class="list">
-                        <p class="search">Linen Cloth Westfall</p>
-                        <div class="li on"><span>Defias Trapper</span><small>Humanoid · 38 killed</small></div>
-                        <div class="li"><span>Defias Smuggler</span><small>Humanoid · 21 killed</small></div>
-                        <div class="li"><span>Defias Pathstalker</span><small>Humanoid · 9 killed</small></div>
-                      </div>
-                      <div class="page">
-                        <h4>Defias Trapper</h4>
-                        <p class="lore">These were Stormwind's own masons once, cheated of their wages after the war. I understand the grievance. I do not understand robbing honest folk over it.</p>
-                        <p class="lore">I know how one of these fights now, and where to hit it.</p>
-                        <div class="badges"><span>38 killed</span><span>Hostile</span><span>Seen in groups</span></div>
-                        <p class="cap">Fought in</p>
-                        <div class="rows"><div><span class="link">Westfall</span><span>38</span></div></div>
-                        <p class="cap">Loot</p>
-                        <div>
-                          <div class="slots">
-                            <span class="slot hot"><svg aria-hidden="true"><use href="#i-cloth"/></svg><b>7</b></span>
-                            <span class="slot"><svg aria-hidden="true"><use href="#i-coin"/></svg><b>12</b></span>
-                            <span class="slot"><svg aria-hidden="true"><use href="#i-wool"/></svg><b>2</b></span>
-                            <span class="slot"><svg aria-hidden="true"><use href="#i-flask"/></svg><b>3</b></span>
-                            <span class="slot"><svg aria-hidden="true"><use href="#i-mask"/></svg><b>1</b></span>
-                          </div>
-                          <div class="tip"><strong>Linen Cloth</strong><span>7 in total, from 5 of 38 kills (13%)</span><span class="g">Click to search in Bestiary</span></div>
-                        </div>
-                      </div>
-                    </div>
-                  </figure>
+        <div class="tabs"><span>Overview</span><span>Journey</span><span>Atlas</span><span class="on">Bestiary</span><span>Professions</span><span>Companions</span></div>
+        <div class="win-body">
+        <div class="list">
+        <p class="search">Linen Cloth Westfall</p>
+        <div class="li on"><span>Defias Trapper</span><small>Humanoid · 38 killed</small></div>
+        <div class="li"><span>Defias Smuggler</span><small>Humanoid · 21 killed</small></div>
+        <div class="li"><span>Defias Pathstalker</span><small>Humanoid · 9 killed</small></div>
+        </div>
+        <div class="page">
+        <h4>Defias Trapper</h4>
+        <p class="lore">These were Stormwind's own masons once, cheated of their wages after the war. I understand the grievance. I do not understand robbing honest folk over it.</p>
+        <p class="lore">I know how one of these fights now, and where to hit it.</p>
+        <div class="badges"><span>38 killed</span><span>Hostile</span><span>Seen in groups</span></div>
+        <p class="cap">Fought in</p>
+        <div class="rows"><div><span class="link">Westfall</span><span>38</span></div></div>
+        <p class="cap">Loot</p>
+        <div>
+        <div class="slots">
+        <span class="slot hot"><svg aria-hidden="true"><use href="#i-cloth"/></svg><b>7</b></span>
+        <span class="slot"><svg aria-hidden="true"><use href="#i-coin"/></svg><b>12</b></span>
+        <span class="slot"><svg aria-hidden="true"><use href="#i-wool"/></svg><b>2</b></span>
+        <span class="slot"><svg aria-hidden="true"><use href="#i-flask"/></svg><b>3</b></span>
+        <span class="slot"><svg aria-hidden="true"><use href="#i-mask"/></svg><b>1</b></span>
+        </div>
+        <div class="tip"><strong>Linen Cloth</strong><span>7 in total, from 5 of 38 kills (13%)</span><span class="g">Click to search in Bestiary</span></div>
+        </div>
+        </div>
+        </div>
+        </figure>
       </article>
       <article class="slide" id="tour-atlas" role="tabpanel" aria-label="Atlas">
         <div class="copy">
           <p class="step-no">FOLLOW ONE REAGENT · 3 OF 3</p>
-          <h3>Maps that fill in as you explore</h3>
-          <p>Click Westfall under Fought in, and the Atlas map lights up where you fought the Defias Trapper. Set a waypoint there and go.</p>
-          <p>Each zone keeps the foes you fought there, what you gathered and the quests you did, and a herb or ore leads to the zones you gathered it in.</p>
+          <h3>Maps that fill in as you go</h3>
+          <p class="lead">Where you fought it, lit on the map.</p>
+          <div class="chips"><span class="chip">Foes by zone</span><span class="chip">Herbs and ore</span><span class="chip">Set a waypoint</span></div>
         </div>
         <figure class="win" aria-label="Westfall in the Atlas, lit where the Defias Trapper was fought">
-                    <div class="tabs"><span>Overview</span><span>Journey</span><span class="on">Atlas</span><span>Bestiary</span><span>Professions</span><span>Companions</span></div>
-                    <div class="win-body">
-                      <div class="list">
-                        <p class="head">Foes fought here</p>
-                        <div class="li on"><span>Defias Trapper</span><small>38 killed</small></div>
-                        <div class="li"><span>Defias Smuggler</span><small>21 killed</small></div>
-                        <div class="li"><span>Riverpaw Gnoll</span><small>17 killed</small></div>
-                        <p class="head">Gathered here</p>
-                        <div class="li"><span>Peacebloom</span><small>11 gathered</small></div>
-                        <p class="head">Quests done here</p>
-                        <div class="li"><span>The Defias Brotherhood</span></div>
-                      </div>
-                      <div class="page">
-                        <h4>Westfall</h4>
-                        <svg class="map" viewBox="0 0 400 270" role="img" aria-label="A map of Westfall with two areas lit in blue and a waypoint pin">
-                          <rect class="ground" x="0" y="0" width="400" height="270"/>
-                          <path class="sea" d="M0 0h58c-10 30 6 52-6 80s10 60-4 92 8 60-2 98H0z"/>
-                          <path class="line" d="M58 0c-10 30 6 52-6 80s10 60-4 92 8 60-2 98"/>
-                          <path class="road" d="M400 66c-60 6-110 4-150 30s-40 70-62 98-50 44-80 60 M250 96c30 20 70 30 110 70"/>
-                          <path class="lit" d="M176 22c30-8 66 2 72 22s-14 40-44 42-52-8-54-28 6-30 26-36z"/>
-                          <path class="lit" d="M106 196c24-12 60-10 70 8s-6 38-34 42-50-4-52-22 2-22 16-28z"/>
-                          <circle class="town" cx="214" cy="128" r="4"/><text x="224" y="132">Sentinel Hill</text>
-                          <circle class="town" cx="140" cy="222" r="4"/><text x="152" y="262">Moonbrook</text>
-                          <text x="192" y="14">Jangolode Mine</text>
-                          <text x="290" y="200">The Dust Plains</text>
-                          <path class="pin" d="M140 196c-7 0-12 5-12 11 0 8 12 19 12 19s12-11 12-19c0-6-5-11-12-11z"/>
-                          <circle cx="140" cy="207" r="3.5" fill="var(--win)"/>
-                        </svg>
-                        <div class="btns"><span class="btn">Show everything</span></div>
-                      </div>
-                    </div>
-                  </figure>
+        <div class="tabs"><span>Overview</span><span>Journey</span><span class="on">Atlas</span><span>Bestiary</span><span>Professions</span><span>Companions</span></div>
+        <div class="win-body">
+        <div class="list">
+        <p class="head">Foes fought here</p>
+        <div class="li on"><span>Defias Trapper</span><small>38 killed</small></div>
+        <div class="li"><span>Defias Smuggler</span><small>21 killed</small></div>
+        <div class="li"><span>Riverpaw Gnoll</span><small>17 killed</small></div>
+        <p class="head">Gathered here</p>
+        <div class="li"><span>Peacebloom</span><small>11 gathered</small></div>
+        <p class="head">Quests done here</p>
+        <div class="li"><span>The Defias Brotherhood</span></div>
+        </div>
+        <div class="page">
+        <h4>Westfall</h4>
+        <svg class="map" viewBox="0 0 400 270" role="img" aria-label="A map of Westfall with two areas lit in blue and a waypoint pin">
+        <rect class="ground" x="0" y="0" width="400" height="270"/>
+        <path class="sea" d="M0 0h58c-10 30 6 52-6 80s10 60-4 92 8 60-2 98H0z"/>
+        <path class="line" d="M58 0c-10 30 6 52-6 80s10 60-4 92 8 60-2 98"/>
+        <path class="road" d="M400 66c-60 6-110 4-150 30s-40 70-62 98-50 44-80 60 M250 96c30 20 70 30 110 70"/>
+        <path class="lit" d="M176 22c30-8 66 2 72 22s-14 40-44 42-52-8-54-28 6-30 26-36z"/>
+        <path class="lit" d="M106 196c24-12 60-10 70 8s-6 38-34 42-50-4-52-22 2-22 16-28z"/>
+        <circle class="town" cx="214" cy="128" r="4"/><text x="224" y="132">Sentinel Hill</text>
+        <circle class="town" cx="140" cy="222" r="4"/><text x="152" y="262">Moonbrook</text>
+        <text x="192" y="14">Jangolode Mine</text>
+        <text x="290" y="200">The Dust Plains</text>
+        <path class="pin" d="M140 196c-7 0-12 5-12 11 0 8 12 19 12 19s12-11 12-19c0-6-5-11-12-11z"/>
+        <circle cx="140" cy="207" r="3.5" fill="var(--win)"/>
+        </svg>
+        <div class="btns"><span class="btn">Show everything</span></div>
+        </div>
+        </div>
+        </figure>
       </article>
       <article class="slide" id="tour-companions" role="tabpanel" aria-label="Companions">
         <div class="copy">
           <h3>The people you play with</h3>
-          <p>Everyone you've grouped with, most often first: the parties, dungeon runs, quests handed in and foes of note you brought down together.</p>
-          <p>Your fellowship grows as you play together, from Acquaintance to Sworn. Search for a dungeon, a zone or a foe to see who was with you.</p>
+          <p class="lead">Most often first, and everything you did together.</p>
+          <div class="chips"><span class="chip">Dungeon runs</span><span class="chip">Acquaintance to Sworn</span><span class="chip">Search by place</span></div>
         </div>
         <figure class="win" aria-label="A companion's page in the Companions tab">
-          <div class="tabs"><span>Overview</span><span>Journey</span><span>Atlas</span><span>Bestiary</span><span>Professions</span><span class="on">Companions</span></div>
-          <div class="win-body">
-            <div class="list">
-              <p class="search">Deadmines</p>
-              <p class="head">Most often</p>
-              <div class="li on"><span>Lyandra</span><small>Trusted · six days together</small></div>
-              <div class="li"><span>Torvald</span><small>Comrade · three days together</small></div>
-              <div class="li"><span>Garrett</span><small>Companion · one day</small></div>
-            </div>
-            <div class="page">
-              <h4>Lyandra</h4>
-              <p class="under">Fellowship: Trusted · first met in Westfall</p>
-              <p class="cap">Together</p>
-              <div class="rows"><div><span>Dungeon runs</span><span>4</span></div><div><span>Quests handed in</span><span>12</span></div><div><span>Foes of note</span><span>3</span></div></div>
-              <p class="cap">Runs</p>
-              <div class="rows"><div><span class="link">The Deadmines</span><span>Cleared, Oct 12</span></div><div><span class="link">Wailing Caverns</span><span>Oct 9</span></div></div>
-            </div>
-          </div>
+        <div class="tabs"><span>Overview</span><span>Journey</span><span>Atlas</span><span>Bestiary</span><span>Professions</span><span class="on">Companions</span></div>
+        <div class="win-body">
+        <div class="list">
+        <p class="search">Deadmines</p>
+        <p class="head">Most often</p>
+        <div class="li on"><span>Lyandra</span><small>Trusted · six days together</small></div>
+        <div class="li"><span>Torvald</span><small>Comrade · three days together</small></div>
+        <div class="li"><span>Garrett</span><small>Companion · one day</small></div>
+        </div>
+        <div class="page">
+        <h4>Lyandra</h4>
+        <p class="under">Fellowship: Trusted · first met in Westfall</p>
+        <p class="cap">Together</p>
+        <div class="rows"><div><span>Dungeon runs</span><span>4</span></div><div><span>Quests handed in</span><span>12</span></div><div><span>Foes of note</span><span>3</span></div></div>
+        <p class="cap">Runs</p>
+        <div class="rows"><div><span class="link">The Deadmines</span><span>Cleared, Oct 12</span></div><div><span class="link">Wailing Caverns</span><span>Oct 9</span></div></div>
+        </div>
+        </div>
         </figure>
       </article>
     </div>
@@ -585,40 +632,63 @@ body { font-size: 1.2rem; }
     </div>
   </section>
 
-  <section id="features" class="band">
+  <section id="features">
     <div class="sec-head">
       <h2>What sets it apart</h2>
     </div>
     <div class="cards">
-        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-mask"/></svg><h3>Your race writes it</h3><p>A dwarf sounds like a dwarf and a troll like a troll, for every race and class, Skyborne included.</p></div>
-        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-key"/></svg><h3>It never changes how you play</h3><p>No quest arrows, no rotation helpers, no nagging. It writes down what you did.</p></div>
-        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg><h3>It stays out of the way</h3><p>Notices are one slim line each, where you put them. You choose which kinds you see, down to a sale at a merchant.</p></div>
-        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg><h3>A new level is an occasion</h3><p>A seal with your class crest steps up to your new level with the game's own sound, then your attributes count up and your trainer's new skills are listed.</p></div>
-        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-skull"/></svg><h3>No spoilers</h3><p>It only knows what your character has seen or been told.</p></div>
-        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-coin"/></svg><h3>Easy on your game</h3><p>It keeps what matters and lets the routine go, so your records stay small and quick.</p></div>
+        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-mask"/></svg><h3>Your race writes it</h3><p>A dwarf sounds like a dwarf, a troll like a troll.</p></div>
+        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-key"/></svg><h3>It never changes how you play</h3><p>No arrows, no helpers, no nagging.</p></div>
+        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg><h3>It stays out of the way</h3><p>One slim line per notice, where you put it.</p></div>
+        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg><h3>A new level is an occasion</h3><p>Your crest, the game's own sound, your new skills.</p></div>
+        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-skull"/></svg><h3>No spoilers</h3><p>Only what your character has seen or been told.</p></div>
+        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-coin"/></svg><h3>Easy on your game</h3><p>It keeps what matters and lets the routine go.</p></div>
     </div>
   </section>
 
-  <section>
-    <div class="sec-head">
-      <h2>The little things</h2>
-      <p class="intro">Chronicle writes down what you kill, loot, skin, gather, make, trade and finish, and each tab reads from the others. It knows only what you've done, so every number in it comes from your own play.</p>
+  <section class="links band">
+    <div>
+      <div class="sec-head">
+        <h2>Everything links</h2>
+        <p class="intro">Every highlighted name leads to its page in another tab.</p>
+      </div>
+      <div class="small-things">
+        <h3>And the little things</h3>
+        <div class="chips"><span class="chip">Search by what drops</span><span class="chip">Who was there</span><span class="chip">What killed you</span><span class="chip">Dungeon loot</span><span class="chip">All your characters</span><span class="chip">Trades and merchants</span><span class="chip">New recipes</span></div>
+      </div>
     </div>
-    <div class="cards">
-        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-cloth"/></svg><h3>Search by what drops</h3><p>Type a thing's name in the Atlas and it lists the foes that dropped it, zone by zone. In Professions, the same search lists every recipe that takes it.</p></div>
-        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-paw"/></svg><h3>Who was there</h3><p>Search Companions for a dungeon, a zone or a foe to see who was with you.</p></div>
-        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-skull"/></svg><h3>What killed you</h3><p>A death names the foe. Swear vengeance on it right from the notice, and the Bestiary keeps count of how many you have killed since.</p></div>
-        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-key"/></svg><h3>Dungeon loot</h3><p>Each boss you killed has a Bestiary page with what it dropped for you. Blue or better from a dungeon's other foes is kept too, under "Other foes".</p></div>
-        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-wool"/></svg><h3>All your characters</h3><p>Tick "Show all character data" and your other characters' foes, maps and recipes show beside this one's, faded.</p></div>
-        <div class="feature"><svg class="ic" aria-hidden="true"><use href="#i-coin"/></svg><h3>Trades and merchants</h3><p>What changed hands, any money, and with whom; what you sold, bought and paid for repairs.</p></div>
-    </div>
+    <svg class="web-map" viewBox="0 0 600 380" role="img" aria-label="Chronicle's tabs and how each leads to the others: the Overview in the middle; the Journey to the Atlas, the Bestiary and Companions; the Atlas to the Bestiary and Professions; the Bestiary to Professions; Companions to the Bestiary">
+      <line class="edge hub" x1="300" y1="190" x2="300" y2="46"/>
+      <line class="edge hub" x1="300" y1="190" x2="516" y2="124"/>
+      <line class="edge hub" x1="300" y1="190" x2="462" y2="330"/>
+      <line class="edge hub" x1="300" y1="190" x2="138" y2="330"/>
+      <line class="edge hub" x1="300" y1="190" x2="84" y2="124"/>
+      <line class="edge" x1="300" y1="46" x2="516" y2="124"/>
+      <line class="edge" x1="300" y1="46" x2="84" y2="124"/>
+      <line class="edge" x1="516" y1="124" x2="462" y2="330"/>
+      <line class="edge" x1="516" y1="124" x2="138" y2="330"/>
+      <line class="edge" x1="462" y1="330" x2="138" y2="330"/>
+      <line class="edge" x1="84" y1="124" x2="462" y2="330"/>
+      <text class="say" x="430" y="70">places</text>
+      <text class="say" x="170" y="70">runs</text>
+      <text class="say" x="512" y="236">foes</text>
+      <text class="say" x="300" y="352">drops</text>
+      <text class="say" x="318" y="268">herbs and ore</text>
+      <text class="say" x="250" y="236">foes</text>
+      <g class="node core"><rect x="232" y="173" width="136" height="34" rx="2"/><text x="300" y="190">Overview</text></g>
+      <g class="node"><rect x="240" y="29" width="120" height="34" rx="2"/><text x="300" y="46">Journey</text></g>
+      <g class="node"><rect x="466" y="107" width="100" height="34" rx="2"/><text x="516" y="124">Atlas</text></g>
+      <g class="node"><rect x="402" y="313" width="120" height="34" rx="2"/><text x="462" y="330">Bestiary</text></g>
+      <g class="node"><rect x="68" y="313" width="140" height="34" rx="2"/><text x="138" y="330">Professions</text></g>
+      <g class="node"><rect x="14" y="107" width="140" height="34" rx="2"/><text x="84" y="124">Companions</text></g>
+    </svg>
   </section>
 
-  <section id="voices" class="voices2 band">
+  <section id="voices" class="voices2">
     <div>
       <div class="sec-head" style="margin-bottom: 1.2rem">
         <h2>The same line, three voices</h2>
-        <p class="intro">Every line is written once, and your race speaks it its own way.</p>
+        <p class="intro">Written once; your race speaks it its own way.</p>
       </div>
       <div class="switch" role="group" aria-label="Who says it">
         <button aria-pressed="true" data-say="There is always one more place over the next rise, and I'm beginning to enjoy that.">Human</button>

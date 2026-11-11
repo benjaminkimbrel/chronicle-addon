@@ -294,6 +294,39 @@ body { font-size: 1.2rem; }
   .track { scroll-behavior: auto; }
 }
 
+/* ---- (2026-11-10, his "less big walls of text") figures, points, tags and the drawing of the tabs ---- */
+.hero2 .thesis { max-width: 34rem; }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem; text-align: center; }
+.stat b { display: block; font-family: "Cinzel", var(--display); font-weight: 500; font-size: clamp(2.2rem, 5vw, 3.2rem); line-height: 1.1; color: var(--gold); }
+.stat span { display: block; margin-top: 0.4rem; color: var(--ink-soft); font-size: 1.02rem; }
+.points { display: grid; gap: 0.9rem; margin-top: 1.4rem; }
+.point { display: flex; gap: 0.8rem; align-items: center; font-size: 1.08rem; }
+.point svg { width: 1.5rem; height: 1.5rem; color: var(--gold); flex: none; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.chip { font-family: var(--label); font-size: 0.86rem; letter-spacing: 0.05em; color: var(--ink); border: 1px solid var(--rule); background: var(--plate); padding: 0.22rem 0.7rem; }
+.band .chip { background: var(--ground); }
+.slide .copy .lead { font-size: 1.18rem; color: var(--ink); }
+.feature p { font-size: 1.02rem; }
+.links { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 2.5rem; align-items: center; }
+.web-map { width: 100%; height: auto; display: block; }
+.web-map .edge { stroke: var(--rule); stroke-width: 1.5; fill: none; }
+.web-map .edge.hub { stroke-dasharray: 3 4; }
+.web-map .node rect { fill: var(--plate); stroke: var(--frame); stroke-width: 1.5; }
+.web-map .node.core rect { fill: var(--gold); stroke: var(--gold); }
+.web-map .node text { font-family: "Alegreya Sans SC", var(--label); font-size: 17px; letter-spacing: 0.06em; fill: var(--title); text-anchor: middle; dominant-baseline: central; }
+.web-map .node.core text { fill: var(--ground); }
+.web-map .say { font-family: var(--body); font-style: italic; font-size: 15px; fill: var(--ink-soft); text-anchor: middle; }
+.small-things { display: grid; gap: 0.9rem; }
+.small-things h3 { font-size: 1.2rem; }
+@media (max-width: 54rem) {
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .links { grid-template-columns: 1fr; }
+}
+@media (max-width: 34rem) {
+  .web-map .node text { font-size: 22px; }
+  .web-map .say { font-size: 20px; }
+}
+
 .notes-head { display: grid; gap: 0.9rem; }
 .back { font-family: var(--label); font-size: 0.82rem; letter-spacing: 0.12em; color: var(--gold); text-decoration: none; }
 .back:hover { text-decoration: underline; }
