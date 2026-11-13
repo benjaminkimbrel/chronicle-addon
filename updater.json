@@ -1,7 +1,7 @@
 {
-  "latest": "1.4.338",
+  "latest": "1.4.340",
   "downloads": [
     "https://drive.usercontent.google.com/download?id=1_haKdCHSkKb1nCxO39B4J17KWx3qcd6c&export=download&confirm=t"
   ],
-  "notice": "This update brings new music, sounds and art: after installing, quit and restart the game fully once (a /reload is not enough)."
+  "notice": "Updating from a version before 1.4.338? After installing, quit and restart the game fully once (a /reload is not enough) for its new music, sounds and art."
 }
